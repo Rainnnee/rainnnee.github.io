@@ -4,13 +4,13 @@
 
 The page introduces Rain Piao to recruiting, academic, and general visitors through a single-page portfolio. It opens with an animated name over the supplied skyline, then settles into a compact banner and a short portfolio with education, research, selected projects, interests, and profile links. The academic and project details are based on Rain’s resume; the site leaves out private contact details and GPA.
 
-The landing copy currently reflects the interests Rain has shared: applied mathematics, statistics, data science, computer science, and machine learning. The plain accessible heading and document title use “Rain Piao,” while the visual wordmark uses **ℝain ℙiao**.
+The landing copy currently reflects the interests Rain has shared: applied mathematics, statistics, data science, computer science, and machine learning. The plain accessible heading and document title use “Rain Piao,” while the visual wordmark uses **ℝain ℙiao**. Education lists the two B.S. programs as Rain specified. A Music section reserves a place for future recordings or listening notes without pretending that audio playback is ready.
 
 ## Two presentation modes
 
 The default Immersive mode uses the supplied skyline as a vivid masthead and as a soft background behind translucent reading panels. The blur is rendered live with CSS `backdrop-filter`, with a solid fallback. Navigation overlaps the masthead, and the page uses generous spacing to keep each section distinct.
 
-On each page load in Immersive mode, the name fades in and rises over the sky, with its underline drawing in beneath it. The title remains the same size as the masthead version and its underline stays fitted to the name. The full-height opening scene then fades into the banner as the page content arrives. The sky keeps its bright blue and pink tones, with a slow color bloom and glass panels. The page is not locked during the sequence: scrolling, clicking, tapping, Tab, or Escape dismisses it. A small oval down-arrow appears when a mouse pointer reaches the bottom edge; touch screens get the cue after the intro. A section link restores its target after the opening sequence.
+On each page load in Immersive mode, one fixed sky image stays in place while the name moves from the center of the viewport into the shorter masthead. The name resolves from blur to clear; its underline expands outward from the center. The masthead contracts at the same time as the title moves, avoiding a second upward shift. Navigation and page content rise in from below. A translucent wash softens and slightly desaturates the backdrop below the masthead while keeping the sky colorful; glass panels remain for content cards. The page is not locked during the sequence: scrolling, clicking, tapping, Tab, or Escape dismisses it. A small oval down-arrow appears when a mouse pointer reaches the bottom edge; touch screens get the cue after the intro. A section link restores its target after the opening sequence.
 
 One two-position switch changes between Immersive and Reading modes. Reading is a deliberately calmer, denser layout: white background, familiar serif type, compact spacing, plain panels, and no opening or scroll animation. It keeps the same semantic content and links. The selected mode is saved locally; Immersive is the default. Keyboard focus, skip navigation, clear headings, and readable contrast are available in both modes.
 
@@ -41,6 +41,8 @@ The color and atmosphere reference requested by Rain includes:
 - [Xeuphoria — Evolve, containing “Nerves”](https://officialxeuphoria.bandcamp.com/album/evolve)
 
 The README opens with Rain’s personal tribute to Xeuphoria, whose piano sessions accompanied them while studying, thinking, and unwinding. The site’s visual direction is a homage to the worlds their music and album artwork evoke; this does not imply affiliation or endorsement.
+
+The ASA DataFest badge in Immersive mode uses the official 200 × 200 PNG published in the American Statistical Association’s [graphic standards](https://www.amstat.org/graphic-standards). It appears only beside Rain’s participation in that event. Other project and research markers are original decorative SVG motifs, not organization logos. UCLA’s official boxed mark is not included: UCLA’s brand site limits downloaded assets to university business and staff use, so the education entry uses the institution’s name in text.
 
 ## Updating the site
 
