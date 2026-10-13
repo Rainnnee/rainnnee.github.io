@@ -10,9 +10,9 @@ The landing copy currently reflects the interests Rain has shared: applied mathe
 
 The supplied skyline is a vivid, full-width banner with rounded lower corners. The wordmark sits over open sky. A narrow navigation strip overlaps the bottom edge and stays available while scrolling. A restrained, translucent reading panel sits over a stationary, softly veiled version of the artwork; the glass blur samples the background behind the panel as it moves. This is rendered live with CSS `backdrop-filter`, with a solid, more opaque fallback.
 
-On a first visit in a tab, the wordmark appears at the center of the viewport, its underline draws in, and the decorative wordmark moves into alignment with the permanent masthead. The full-screen artwork fades to reveal the banner and page underneath. The sequence lasts about 1.1 seconds and can be dismissed by scrolling, clicking, tapping, pressing Tab, or pressing Escape. A hash link, reduced-motion preference, or Simple display mode skips the sequence. The real heading and page content exist before the animation, and without JavaScript the complete page remains visible.
+On every page load in Atmosphere mode, the wordmark appears at the center of the viewport, its underline draws in, and the decorative wordmark moves into alignment with the permanent masthead. The full-screen artwork fades to reveal the banner and page underneath. The sequence lasts about 1.1 seconds and can be dismissed by scrolling, clicking, tapping, pressing Tab, or pressing Escape. Visitors can select Reduced motion or Simple mode; both preferences are saved locally. When a page opens with a section link, the animation plays first and then moves to that section. The real heading and page content exist before the animation, and without JavaScript the complete page remains visible.
 
-The Atmosphere/Simple control changes the reading surfaces while keeping the same content and preserving page position. It stores the choice locally when browser storage is available. Reduced-motion preference is respected independently.
+The Atmosphere/Simple control changes the reading surfaces while keeping the same content and preserving page position. A separate motion control lets visitors turn the opening transition and other motion off. Both preferences are saved locally when browser storage is available; Atmosphere and full motion are the defaults.
 
 ## Name and palette
 
@@ -29,7 +29,7 @@ The image provides most of the page’s brighter blue and pink. Body copy uses a
 
 ## Artwork and inspiration
 
-`assets/images/sky.webp` is an optimized WebP copy of **Pastel Skyline Under Cherry Blossom Skies**, an AI-generated image supplied by Rain on 2026-10-13. The source PNG remains with Rain. No Xeuphoria album artwork is distributed with this site.
+`assets/images/sky.webp` is an optimized WebP copy of **Pastel Skyline Under Cherry Blossom Skies**, an AI-generated image supplied by Rain on 2026-10-13. The 1672 × 941 image is compressed to about 168 KB and preloaded for the first screen. The source PNG remains with Rain. No Xeuphoria album artwork is distributed with this site.
 
 The color and atmosphere reference requested by Rain includes:
 
