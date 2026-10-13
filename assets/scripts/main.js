@@ -2,10 +2,12 @@
   const body = document.body;
   const toggle = document.querySelector(".mode-toggle");
   const modeLabel = document.querySelector(".mode-toggle__label");
+  const motionToggle = document.querySelector(".motion-toggle");
+  const motionLabel = document.querySelector(".motion-toggle__label");
   const intro = document.querySelector(".intro");
   const introWordmark = document.querySelector(".intro__wordmark");
   const pageWordmark = document.querySelector(".wordmark");
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const initialHash = window.location.hash;
 
   function readMode() {
     try {
@@ -36,6 +38,34 @@
     setMode(body.dataset.mode === "simple" ? "atmosphere" : "simple", true);
   });
 
+  function setMotion(mode, persist = false) {
+    const reduced = mode === "reduced";
+    body.dataset.motion = reduced ? "reduced" : "full";
+    document.documentElement.dataset.motion = body.dataset.motion;
+    motionToggle.setAttribute("aria-pressed", String(reduced));
+    motionToggle.setAttribute("aria-label", `Switch to ${reduced ? "full" : "reduced"} motion`);
+    motionLabel.textContent = reduced ? "Motion: Reduced" : "Motion: On";
+    if (persist) {
+      try {
+        localStorage.setItem("rainpiao-motion", reduced ? "reduced" : "full");
+      } catch {
+        // The control still works for this visit when storage is unavailable.
+      }
+    }
+  }
+
+  let savedMotion = "full";
+  try {
+    savedMotion = localStorage.getItem("rainpiao-motion") === "reduced" ? "reduced" : "full";
+  } catch {
+    // Full motion is the default when storage is unavailable.
+  }
+  setMotion(savedMotion);
+  motionToggle.hidden = false;
+  motionToggle.addEventListener("click", () => {
+    setMotion(body.dataset.motion === "reduced" ? "full" : "reduced", true);
+  });
+
   const navLinks = [...document.querySelectorAll('.site-nav a[href^="#"]')]
     .map((link) => ({ link, section: document.querySelector(link.getAttribute("href")) }))
     .filter(({ section }) => section);
@@ -54,27 +84,17 @@
     for (const { section } of navLinks) observer.observe(section);
   }
 
-  function hasSeenIntro() {
-    try {
-      return sessionStorage.getItem("rainpiao-intro-seen") === "yes";
-    } catch {
-      return false;
-    }
-  }
-
-  function markIntroSeen() {
-    try {
-      sessionStorage.setItem("rainpiao-intro-seen", "yes");
-    } catch {
-      // The intro can still complete when session storage is unavailable.
-    }
-  }
-
   function playIntro() {
-    if (!intro || !introWordmark || !pageWordmark || body.dataset.mode === "simple" || reduceMotion.matches || location.hash || hasSeenIntro()) return;
+    if (!intro || !introWordmark || !pageWordmark || body.dataset.mode === "simple" || body.dataset.motion === "reduced") return;
 
     body.classList.add("is-intro-running");
     intro.hidden = false;
+    if (initialHash) {
+      const previousBehavior = document.documentElement.style.scrollBehavior;
+      document.documentElement.style.scrollBehavior = "auto";
+      window.scrollTo(0, 0);
+      document.documentElement.style.scrollBehavior = previousBehavior;
+    }
     introWordmark.getBoundingClientRect();
     requestAnimationFrame(() => {
       intro.classList.add("is-active");
@@ -99,12 +119,20 @@
     const finish = () => {
       if (finished) return;
       finished = true;
-      markIntroSeen();
       intro.classList.remove("is-active", "is-leaving");
       intro.hidden = true;
       body.classList.remove("is-intro-running");
       body.classList.add("is-intro-finished");
       removeListeners();
+      if (initialHash) {
+        const target = document.querySelector(initialHash);
+        if (target) {
+          const previousBehavior = document.documentElement.style.scrollBehavior;
+          document.documentElement.style.scrollBehavior = "auto";
+          target.scrollIntoView({ block: "start" });
+          document.documentElement.style.scrollBehavior = previousBehavior;
+        }
+      }
     };
     const onKeyDown = (event) => {
       if (event.key === "Tab" || event.key === "Escape") finish();

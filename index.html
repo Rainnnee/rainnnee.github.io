@@ -6,15 +6,15 @@
     <meta name="theme-color" content="#d8edfa">
     <meta name="description" content="The personal website of Rain Piao, exploring applied mathematics, statistics, data science, computer science, and machine learning.">
     <title>Rain Piao</title>
-    <link rel="preload" as="image" href="./assets/images/sky.webp" fetchpriority="high">
-    <link rel="stylesheet" href="./assets/styles/main.css?v=20261013">
-    <script src="./assets/scripts/main.js?v=20261013" defer></script>
+    <link rel="preload" as="image" href="./assets/images/sky.webp?v=20261013-3" fetchpriority="high">
+    <link rel="stylesheet" href="./assets/styles/main.css?v=20261013-3">
+    <script src="./assets/scripts/main.js?v=20261013-3" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to content</a>
 
     <div class="intro" aria-hidden="true" hidden>
-      <img class="intro__art" src="./assets/images/sky.webp" alt="">
+      <img class="intro__art" src="./assets/images/sky.webp?v=20261013-3" alt="" fetchpriority="high" decoding="async">
       <div class="intro__wash"></div>
       <div class="intro__wordmark" aria-hidden="true">
         <span><span class="initial">ℝ</span>ain <span class="initial">ℙ</span>iao</span>
@@ -22,7 +22,7 @@
     </div>
 
     <header class="masthead" id="top">
-      <img class="masthead__art" src="./assets/images/sky.webp" alt="" fetchpriority="high" width="1672" height="941">
+      <img class="masthead__art" src="./assets/images/sky.webp?v=20261013-3" alt="" fetchpriority="high" decoding="async" width="1672" height="941">
       <div class="masthead__wash" aria-hidden="true"></div>
       <div class="masthead__inner">
         <h1 class="wordmark" aria-label="Rain Piao">
@@ -40,6 +40,9 @@
       <button class="mode-toggle" type="button" aria-pressed="false" aria-label="Switch to Simple mode" hidden>
         <span class="mode-toggle__icon" aria-hidden="true">◐</span>
         <span class="mode-toggle__label">Atmosphere</span>
+      </button>
+      <button class="motion-toggle" type="button" aria-pressed="false" aria-label="Switch to reduced motion" hidden>
+        <span class="motion-toggle__label">Motion: On</span>
       </button>
     </nav>
 
