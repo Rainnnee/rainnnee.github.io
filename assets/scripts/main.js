@@ -3,7 +3,6 @@
   const root = document.documentElement;
   const toggle = document.querySelector(".mode-toggle");
   const scrollCue = document.querySelector(".scroll-cue");
-  const intro = document.querySelector(".intro");
   const initialHash = window.location.hash;
   let finishIntro = () => {};
 
@@ -58,28 +57,19 @@
   }
 
   function playIntro() {
-    if (!intro || body.dataset.mode === "accessible") return;
-
-    body.classList.add("is-intro-running");
-    intro.hidden = false;
+    if (root.dataset.intro !== "ready" || body.dataset.mode === "accessible") return;
     if (initialHash) {
       const previousBehavior = document.documentElement.style.scrollBehavior;
       document.documentElement.style.scrollBehavior = "auto";
       window.scrollTo(0, 0);
       document.documentElement.style.scrollBehavior = previousBehavior;
     }
-    requestAnimationFrame(() => {
-      intro.classList.add("is-active", "is-leaving");
-    });
 
     let finished = false;
     finishIntro = () => {
       if (finished) return;
       finished = true;
-      intro.classList.remove("is-active", "is-leaving");
-      intro.hidden = true;
-      body.classList.remove("is-intro-running");
-      body.classList.add("is-intro-finished");
+      delete root.dataset.intro;
       removeListeners();
       if (initialHash) {
         const target = document.querySelector(initialHash);
@@ -108,7 +98,10 @@
     window.addEventListener("scroll", onScroll, { passive: true, once: true });
     window.addEventListener("pointerdown", onInteract, { once: true });
     window.addEventListener("touchstart", onInteract, { once: true, passive: true });
-    window.setTimeout(finishIntro, 2050);
+    requestAnimationFrame(() => {
+      delete root.dataset.intro;
+    });
+    window.setTimeout(finishIntro, 1650);
   }
 
   scrollCue.addEventListener("click", () => {

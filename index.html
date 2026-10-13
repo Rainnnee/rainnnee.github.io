@@ -12,24 +12,21 @@
       } catch {
         document.documentElement.dataset.mode = "animated";
       }
+      if (document.documentElement.dataset.mode !== "accessible" && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        document.documentElement.dataset.intro = "ready";
+        window.setTimeout(() => {
+          if (document.documentElement.dataset.intro === "ready") delete document.documentElement.dataset.intro;
+        }, 1700);
+      }
     </script>
-    <link rel="preload" as="image" href="./assets/images/sky.webp?v=20261013-5" fetchpriority="high">
-    <link rel="stylesheet" href="./assets/styles/main.css?v=20261013-5">
-    <script src="./assets/scripts/main.js?v=20261013-5" defer></script>
+    <link rel="preload" as="image" href="./assets/images/sky.webp?v=20261013-6" fetchpriority="high">
+    <link rel="stylesheet" href="./assets/styles/main.css?v=20261013-6">
+    <script src="./assets/scripts/main.js?v=20261013-6" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to content</a>
 
-    <div class="intro" aria-hidden="true" hidden>
-      <img class="intro__art" src="./assets/images/sky.webp?v=20261013-5" alt="" fetchpriority="high" decoding="async">
-      <div class="intro__wash"></div>
-      <div class="intro__wordmark" aria-hidden="true">
-        <span><span class="initial">ℝ</span>ain <span class="initial">ℙ</span>iao</span>
-      </div>
-    </div>
-
     <header class="masthead" id="top">
-      <img class="masthead__art" src="./assets/images/sky.webp?v=20261013-5" alt="" fetchpriority="high" decoding="async" width="1672" height="941">
       <div class="masthead__wash" aria-hidden="true"></div>
       <div class="masthead__inner">
         <h1 class="wordmark" aria-label="Rain Piao">
@@ -46,6 +43,7 @@
         <a href="#research">Research</a>
         <a href="#projects">Projects</a>
         <a href="#interests">Interests</a>
+        <a href="#music">Music</a>
       </div>
       <button class="mode-toggle" type="button" role="switch" aria-checked="false" aria-label="Switch to Reading mode" hidden>
         <span class="mode-toggle__option mode-toggle__option--immersive">Immersive</span>
@@ -77,11 +75,10 @@
           <h2 id="education-title">Education</h2>
         </div>
         <article class="education-card glass-panel">
-          <div class="education-card__mark" aria-hidden="true">UCLA</div>
           <div class="education-card__details">
             <p class="education-card__meta">Expected June 2029 <span>·</span> Los Angeles, California</p>
             <h3>University of California, Los Angeles</h3>
-            <p>B.S. in Statistics and Data Science; intended second major in Applied Mathematics.</p>
+            <p>B.S. in Statistics and Data Science · B.S. in Applied Mathematics</p>
             <p class="education-card__note">UCLA College Honors Program · Dean’s Honors List</p>
             <p class="education-card__coursework"><strong>Selected coursework</strong> Regression Analysis, Experimental Design, Statistical Programming with R, Linear Algebra, Multivariable Calculus, Differential Equations, and C++.</p>
           </div>
@@ -94,7 +91,7 @@
           <h2 id="research-title">Research</h2>
         </div>
         <article class="feature-card feature-card--research">
-          <div class="feature-card__topline"><span>BruinML</span><span>Undergraduate Researcher · 2026–present</span></div>
+          <div class="feature-card__topline"><span class="organization-mark organization-mark--bruinml"><svg aria-hidden="true" viewBox="0 0 48 48"><path d="M9 10h10v10H9zM29 10h10v10H29zM19 28h10v10H19z"/><path d="m19 15 10 0M14 20l10 8m10-8-10 8"/></svg><span>BruinML</span></span><span>Undergraduate Researcher · 2026–present</span></div>
           <h3>Finding small unfamiliar regions in images</h3>
           <p>I work with a five-person team on training-free methods for detecting small out-of-distribution regions using frozen CLIP patch features. I extended a Python Monte Carlo study across 225 experimental settings and evaluated a spatial-scan method that improved simulated detection power under Gaussian-mixture noise.</p>
           <div class="tag-row" aria-label="Research topics"><span>Machine learning</span><span>Computer vision</span><span>Statistical detection</span><span>Python</span></div>
@@ -111,6 +108,7 @@
         </div>
         <div class="project-grid">
           <article class="project-card project-card--rose">
+            <div class="project-card__identity" aria-hidden="true"><img class="project-mark project-mark--datafest" src="./assets/images/datafest-logo.png" alt="" width="100" height="100"></div>
             <div class="project-card__number">01</div>
             <p class="project-card__meta">ASA DataFest at UCLA <span>·</span> May 2026</p>
             <h3>Making sense of healthcare data</h3>
@@ -118,6 +116,7 @@
             <div class="tag-row"><span>R</span><span>Data analysis</span><span>Team lead</span></div>
           </article>
           <article class="project-card project-card--blue">
+            <div class="project-card__identity"><span class="project-mark project-mark--prosperity" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M24 3 28.8 18.3 44 24l-15.2 5.7L24 45l-4.8-15.3L4 24l15.2-5.7L24 3Z"/><circle cx="37" cy="10" r="2"/><circle cx="10" cy="38" r="1.7"/></svg><strong>Prosperity 4</strong></span></div>
             <div class="project-card__number">02</div>
             <p class="project-card__meta">IMC Prosperity 4 <span>·</span> Spring 2026</p>
             <h3>Building a trading strategy</h3>
@@ -125,12 +124,28 @@
             <div class="tag-row"><span>Python</span><span>Backtesting</span><span>Algorithms</span></div>
           </article>
           <article class="project-card project-card--lilac">
+            <div class="project-card__identity"><span class="project-mark project-mark--lidar" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M24 7v13m0 8v13M7 24h13m8 0h13M12 12l9 9m6 6 9 9m0-24-9 9m-6 6-9 9"/><circle cx="24" cy="24" r="5"/></svg><strong>LiDAR</strong></span></div>
             <div class="project-card__number">03</div>
             <p class="project-card__meta">Independent project <span>·</span> 2025</p>
             <h3>LiDAR traffic monitoring</h3>
             <p>Implemented a 3D breadth-first-search pipeline in C++ to group LiDAR points into vehicles, create bounding boxes, track them frame by frame, and estimate speed for traffic-flow analysis.</p>
             <div class="tag-row"><span>C++</span><span>Linux</span><span>Computer vision</span></div>
           </article>
+        </div>
+      </section>
+
+      <section class="music content-width" id="music" aria-labelledby="music-title">
+        <div class="section-heading">
+          <p class="eyebrow">A different kind of practice</p>
+          <h2 id="music-title">Music</h2>
+        </div>
+        <div class="music-card glass-panel">
+          <span class="music-card__note" aria-hidden="true">♫</span>
+          <div>
+            <h3>A small listening and making space</h3>
+            <p>Music belongs here too. I’ll add pieces and listening notes when I’m ready to share them.</p>
+          </div>
+          <span class="music-card__status">More soon</span>
         </div>
       </section>
 
