@@ -1,31 +1,32 @@
 (() => {
   const body = document.body;
+  const root = document.documentElement;
   const toggle = document.querySelector(".mode-toggle");
-  const modeLabel = document.querySelector(".mode-toggle__label");
-  const motionToggle = document.querySelector(".motion-toggle");
-  const motionLabel = document.querySelector(".motion-toggle__label");
+  const scrollCue = document.querySelector(".scroll-cue");
   const intro = document.querySelector(".intro");
-  const introWordmark = document.querySelector(".intro__wordmark");
-  const pageWordmark = document.querySelector(".wordmark");
   const initialHash = window.location.hash;
+  let finishIntro = () => {};
 
   function readMode() {
     try {
-      return localStorage.getItem("rainpiao-mode") === "simple" ? "simple" : "atmosphere";
+      const saved = localStorage.getItem("rainpiao-mode");
+      if (saved === "accessible" || saved === "animated") return saved;
     } catch {
-      return "atmosphere";
+      // Keep the page usable when browser storage is unavailable.
     }
+    return "animated";
   }
 
   function setMode(mode, persist = false) {
-    const simple = mode === "simple";
-    body.dataset.mode = simple ? "simple" : "atmosphere";
-    toggle.setAttribute("aria-pressed", String(simple));
-    toggle.setAttribute("aria-label", `Switch to ${simple ? "Atmosphere" : "Simple"} mode`);
-    modeLabel.textContent = simple ? "Simple" : "Atmosphere";
+    const accessible = mode === "accessible";
+    root.dataset.mode = accessible ? "accessible" : "animated";
+    body.dataset.mode = root.dataset.mode;
+    toggle.setAttribute("aria-checked", String(accessible));
+    toggle.setAttribute("aria-label", `Switch to ${accessible ? "Immersive" : "Reading"} mode`);
+    if (accessible) finishIntro();
     if (persist) {
       try {
-        localStorage.setItem("rainpiao-mode", simple ? "simple" : "atmosphere");
+        localStorage.setItem("rainpiao-mode", accessible ? "accessible" : "animated");
       } catch {
         // The control still works for this visit when storage is unavailable.
       }
@@ -35,35 +36,7 @@
   setMode(readMode());
   toggle.hidden = false;
   toggle.addEventListener("click", () => {
-    setMode(body.dataset.mode === "simple" ? "atmosphere" : "simple", true);
-  });
-
-  function setMotion(mode, persist = false) {
-    const reduced = mode === "reduced";
-    body.dataset.motion = reduced ? "reduced" : "full";
-    document.documentElement.dataset.motion = body.dataset.motion;
-    motionToggle.setAttribute("aria-pressed", String(reduced));
-    motionToggle.setAttribute("aria-label", `Switch to ${reduced ? "full" : "reduced"} motion`);
-    motionLabel.textContent = reduced ? "Motion: Reduced" : "Motion: On";
-    if (persist) {
-      try {
-        localStorage.setItem("rainpiao-motion", reduced ? "reduced" : "full");
-      } catch {
-        // The control still works for this visit when storage is unavailable.
-      }
-    }
-  }
-
-  let savedMotion = "full";
-  try {
-    savedMotion = localStorage.getItem("rainpiao-motion") === "reduced" ? "reduced" : "full";
-  } catch {
-    // Full motion is the default when storage is unavailable.
-  }
-  setMotion(savedMotion);
-  motionToggle.hidden = false;
-  motionToggle.addEventListener("click", () => {
-    setMotion(body.dataset.motion === "reduced" ? "full" : "reduced", true);
+    setMode(body.dataset.mode === "accessible" ? "animated" : "accessible", true);
   });
 
   const navLinks = [...document.querySelectorAll('.site-nav a[href^="#"]')]
@@ -85,7 +58,7 @@
   }
 
   function playIntro() {
-    if (!intro || !introWordmark || !pageWordmark || body.dataset.mode === "simple" || body.dataset.motion === "reduced") return;
+    if (!intro || body.dataset.mode === "accessible") return;
 
     body.classList.add("is-intro-running");
     intro.hidden = false;
@@ -95,28 +68,12 @@
       window.scrollTo(0, 0);
       document.documentElement.style.scrollBehavior = previousBehavior;
     }
-    introWordmark.getBoundingClientRect();
     requestAnimationFrame(() => {
-      intro.classList.add("is-active");
-      requestAnimationFrame(() => {
-        const start = introWordmark.getBoundingClientRect();
-        const end = pageWordmark.getBoundingClientRect();
-        const x = end.left + end.width / 2 - (start.left + start.width / 2);
-        const y = end.top + end.height / 2 - (start.top + start.height / 2);
-        const scale = end.width / start.width;
-        introWordmark.animate(
-          [
-            { transform: "translate(0, 0) scale(1)" },
-            { transform: `translate(${x}px, ${y}px) scale(${scale})` },
-          ],
-          { duration: 780, delay: 350, easing: "cubic-bezier(.22, .72, .2, 1)", fill: "forwards" },
-        );
-        intro.classList.add("is-leaving");
-      });
+      intro.classList.add("is-active", "is-leaving");
     });
 
     let finished = false;
-    const finish = () => {
+    finishIntro = () => {
       if (finished) return;
       finished = true;
       intro.classList.remove("is-active", "is-leaving");
@@ -133,12 +90,13 @@
           document.documentElement.style.scrollBehavior = previousBehavior;
         }
       }
+      if (window.matchMedia("(hover: none)").matches) body.classList.add("show-scroll-cue");
     };
     const onKeyDown = (event) => {
-      if (event.key === "Tab" || event.key === "Escape") finish();
+      if (event.key === "Tab" || event.key === "Escape") finishIntro();
     };
-    const onScroll = () => finish();
-    const onInteract = () => finish();
+    const onScroll = () => finishIntro();
+    const onInteract = () => finishIntro();
     const removeListeners = () => {
       window.removeEventListener("keydown", onKeyDown);
       window.removeEventListener("scroll", onScroll);
@@ -150,8 +108,19 @@
     window.addEventListener("scroll", onScroll, { passive: true, once: true });
     window.addEventListener("pointerdown", onInteract, { once: true });
     window.addEventListener("touchstart", onInteract, { once: true, passive: true });
-    window.setTimeout(finish, 1160);
+    window.setTimeout(finishIntro, 2050);
   }
+
+  scrollCue.addEventListener("click", () => {
+    document.querySelector("#about").scrollIntoView({ behavior: body.dataset.mode === "accessible" ? "auto" : "smooth" });
+  });
+  window.addEventListener("pointermove", (event) => {
+    if (event.pointerType !== "mouse") return;
+    body.classList.toggle("show-scroll-cue", event.clientY > window.innerHeight - 88);
+  }, { passive: true });
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 24) body.classList.remove("show-scroll-cue");
+  }, { passive: true });
 
   playIntro();
 })();

@@ -6,15 +6,22 @@
     <meta name="theme-color" content="#d8edfa">
     <meta name="description" content="The personal website of Rain Piao, exploring applied mathematics, statistics, data science, computer science, and machine learning.">
     <title>Rain Piao</title>
-    <link rel="preload" as="image" href="./assets/images/sky.webp?v=20261013-3" fetchpriority="high">
-    <link rel="stylesheet" href="./assets/styles/main.css?v=20261013-3">
-    <script src="./assets/scripts/main.js?v=20261013-3" defer></script>
+    <script>
+      try {
+        document.documentElement.dataset.mode = localStorage.getItem("rainpiao-mode") === "accessible" ? "accessible" : "animated";
+      } catch {
+        document.documentElement.dataset.mode = "animated";
+      }
+    </script>
+    <link rel="preload" as="image" href="./assets/images/sky.webp?v=20261013-5" fetchpriority="high">
+    <link rel="stylesheet" href="./assets/styles/main.css?v=20261013-5">
+    <script src="./assets/scripts/main.js?v=20261013-5" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to content</a>
 
     <div class="intro" aria-hidden="true" hidden>
-      <img class="intro__art" src="./assets/images/sky.webp?v=20261013-3" alt="" fetchpriority="high" decoding="async">
+      <img class="intro__art" src="./assets/images/sky.webp?v=20261013-5" alt="" fetchpriority="high" decoding="async">
       <div class="intro__wash"></div>
       <div class="intro__wordmark" aria-hidden="true">
         <span><span class="initial">ℝ</span>ain <span class="initial">ℙ</span>iao</span>
@@ -22,7 +29,7 @@
     </div>
 
     <header class="masthead" id="top">
-      <img class="masthead__art" src="./assets/images/sky.webp?v=20261013-3" alt="" fetchpriority="high" decoding="async" width="1672" height="941">
+      <img class="masthead__art" src="./assets/images/sky.webp?v=20261013-5" alt="" fetchpriority="high" decoding="async" width="1672" height="941">
       <div class="masthead__wash" aria-hidden="true"></div>
       <div class="masthead__inner">
         <h1 class="wordmark" aria-label="Rain Piao">
@@ -35,16 +42,21 @@
       <a class="site-nav__home" href="#top" aria-label="Rain Piao, back to top">Rain Piao</a>
       <div class="site-nav__links">
         <a href="#about">About</a>
+        <a href="#education">Education</a>
+        <a href="#research">Research</a>
+        <a href="#projects">Projects</a>
         <a href="#interests">Interests</a>
       </div>
-      <button class="mode-toggle" type="button" aria-pressed="false" aria-label="Switch to Simple mode" hidden>
-        <span class="mode-toggle__icon" aria-hidden="true">◐</span>
-        <span class="mode-toggle__label">Atmosphere</span>
-      </button>
-      <button class="motion-toggle" type="button" aria-pressed="false" aria-label="Switch to reduced motion" hidden>
-        <span class="motion-toggle__label">Motion: On</span>
+      <button class="mode-toggle" type="button" role="switch" aria-checked="false" aria-label="Switch to Reading mode" hidden>
+        <span class="mode-toggle__option mode-toggle__option--immersive">Immersive</span>
+        <span class="mode-toggle__track" aria-hidden="true"><span class="mode-toggle__thumb"></span></span>
+        <span class="mode-toggle__option mode-toggle__option--reading">Reading</span>
       </button>
     </nav>
+
+    <button class="scroll-cue" type="button" aria-label="Scroll down to explore the page">
+      <span aria-hidden="true">↓</span>
+    </button>
 
     <main id="main-content" class="page-content">
       <section class="intro-copy content-width" id="about" aria-labelledby="about-title">
@@ -56,6 +68,69 @@
           <p class="intro-copy__lead">My interests span applied mathematics, statistics, data science, computer science, and machine learning.</p>
           <p>This is a home for the work, ideas, and questions I collect across those fields. I’ll add more as I’m ready to share it.</p>
           <a class="text-link" href="#interests">Explore my interests <span aria-hidden="true">↓</span></a>
+        </div>
+      </section>
+
+      <section class="education content-width" id="education" aria-labelledby="education-title">
+        <div class="section-heading">
+          <p class="eyebrow">Learning in Los Angeles</p>
+          <h2 id="education-title">Education</h2>
+        </div>
+        <article class="education-card glass-panel">
+          <div class="education-card__mark" aria-hidden="true">UCLA</div>
+          <div class="education-card__details">
+            <p class="education-card__meta">Expected June 2029 <span>·</span> Los Angeles, California</p>
+            <h3>University of California, Los Angeles</h3>
+            <p>B.S. in Statistics and Data Science; intended second major in Applied Mathematics.</p>
+            <p class="education-card__note">UCLA College Honors Program · Dean’s Honors List</p>
+            <p class="education-card__coursework"><strong>Selected coursework</strong> Regression Analysis, Experimental Design, Statistical Programming with R, Linear Algebra, Multivariable Calculus, Differential Equations, and C++.</p>
+          </div>
+        </article>
+      </section>
+
+      <section class="research content-width" id="research" aria-labelledby="research-title">
+        <div class="section-heading">
+          <p class="eyebrow">Questions at the edge of vision</p>
+          <h2 id="research-title">Research</h2>
+        </div>
+        <article class="feature-card feature-card--research">
+          <div class="feature-card__topline"><span>BruinML</span><span>Undergraduate Researcher · 2026–present</span></div>
+          <h3>Finding small unfamiliar regions in images</h3>
+          <p>I work with a five-person team on training-free methods for detecting small out-of-distribution regions using frozen CLIP patch features. I extended a Python Monte Carlo study across 225 experimental settings and evaluated a spatial-scan method that improved simulated detection power under Gaussian-mixture noise.</p>
+          <div class="tag-row" aria-label="Research topics"><span>Machine learning</span><span>Computer vision</span><span>Statistical detection</span><span>Python</span></div>
+        </article>
+      </section>
+
+      <section class="projects content-width" id="projects" aria-labelledby="projects-title">
+        <div class="section-heading section-heading--projects">
+          <div>
+            <p class="eyebrow">A few things I’ve built and explored</p>
+            <h2 id="projects-title">Projects &amp; competitions</h2>
+          </div>
+          <span class="section-heading__index" aria-hidden="true">01 — 03</span>
+        </div>
+        <div class="project-grid">
+          <article class="project-card project-card--rose">
+            <div class="project-card__number">01</div>
+            <p class="project-card__meta">ASA DataFest at UCLA <span>·</span> May 2026</p>
+            <h3>Making sense of healthcare data</h3>
+            <p>Coordinated a five-person team in a 48-hour analysis of de-identified patient data. We used R, visualization, and rank correlation to examine stress, age, encounter volume, and social needs, then presented recommendations for cancer care.</p>
+            <div class="tag-row"><span>R</span><span>Data analysis</span><span>Team lead</span></div>
+          </article>
+          <article class="project-card project-card--blue">
+            <div class="project-card__number">02</div>
+            <p class="project-card__meta">IMC Prosperity 4 <span>·</span> Spring 2026</p>
+            <h3>Building a trading strategy</h3>
+            <p>Developed and backtested Python strategies with adaptive mean reversion, position limits, and risk controls. Our team qualified in the top 16% of 18,803 teams and competed through Round 3.</p>
+            <div class="tag-row"><span>Python</span><span>Backtesting</span><span>Algorithms</span></div>
+          </article>
+          <article class="project-card project-card--lilac">
+            <div class="project-card__number">03</div>
+            <p class="project-card__meta">Independent project <span>·</span> 2025</p>
+            <h3>LiDAR traffic monitoring</h3>
+            <p>Implemented a 3D breadth-first-search pipeline in C++ to group LiDAR points into vehicles, create bounding boxes, track them frame by frame, and estimate speed for traffic-flow analysis.</p>
+            <div class="tag-row"><span>C++</span><span>Linux</span><span>Computer vision</span></div>
+          </article>
         </div>
       </section>
 
