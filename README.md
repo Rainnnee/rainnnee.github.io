@@ -1,34 +1,49 @@
-# Rain Piao — personal website
+# ℝain ℙiao
 
-A small personal website for Rain Piao, hosted on GitHub Pages.
+A tribute to my favorite music producer, [**Xeuphoria**](https://www.xeuphoria.com/), whose piano sessions have accompanied me through days and nights of studying, thinking, and unwinding. The skies and colors of this website are a small homage to the worlds their music and album artwork evoke.
 
-- **Website:** https://rainnnee.github.io/rainpiao/
-- **Repository:** `Rainnnee/rainpiao`
-- **Current scope:** an illustrated background and a mathematical name treatment. No biography or project content yet.
+[Visit my website](https://rainnnee.github.io/rainpiao/)
 
-## Project layout
+This is my personal website, bringing together my interests in applied mathematics, statistics, data science, computer science, and machine learning.
+
+## Behind the initials
+
+**ℝ** nods to the real numbers. **ℙ** nods to probability.
+
+They give my name a mathematical accent while keeping it recognizable. For accessibility, the page title and accessible heading use the plain name **Rain Piao**.
+
+## Built with
+
+HTML, CSS, and a small amount of JavaScript, hosted on GitHub Pages. No build step is required.
 
 ```text
-index.html                 Accessible page structure and metadata
-assets/styles/main.css     Layout, typography, and color tokens
-assets/images/             Optimized original website artwork
-docs/design.md             Visual decisions and asset provenance
+index.html                 Page structure and metadata
+assets/styles/main.css     Layout, typography, and color theme
+assets/scripts/main.js     Intro animation and display preference
+assets/images/sky.webp     Optimized website artwork
+docs/design.md             Design decisions and artwork provenance
 CONTRIBUTING.md            Development and publishing workflow
 .github/                   Pull request template
 ```
 
-## Preview locally
+## Local preview
 
-No package installation or build step is required. From this directory:
+From the repository directory:
 
 ```sh
 python3 -m http.server 8000
 ```
 
-Open http://localhost:8000. The public site lives under `/rainpiao/`, so keep asset links relative (for example `./assets/styles/main.css`).
+Open [http://localhost:8000](http://localhost:8000).
 
-## Publishing
+The published website lives under `/rainpiao/`, so asset links must remain relative.
 
-GitHub Pages publishes the root of `main`. Work on a feature branch, verify the result, then open a pull request. Merging that pull request into `main` triggers the existing Pages deployment. Check the Actions run and live site after merging.
+## Development
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for commit categories and review checks, and [docs/design.md](docs/design.md) for the visual direction.
+Use a short-lived feature branch and a focused commit message. Preview desktop and mobile layouts, then open a pull request and merge it into `main` to publish through GitHub Pages.
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the workflow.
+
+## Artwork
+
+The website background is an AI-generated image supplied by me. Its visual direction is inspired by Xeuphoria’s album artwork; the image itself was not created by Xeuphoria. No Xeuphoria album artwork is distributed with this site.

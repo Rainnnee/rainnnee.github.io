@@ -1,45 +1,45 @@
 # Design notes
 
-## Current direction
+## Purpose and content
 
-This is a first, deliberately minimal landing page. The only visible text is Rain Piao's name. The chosen artwork is **Pastel Skyline Under Cherry Blossom Skies**, supplied by the owner. Its luminous center gives the name room, while the city and rooftop give the backdrop a sense of place.
+The page introduces Rain Piao to recruiting, academic, and general visitors through a conventional single-page portfolio. The opening animation quickly resolves into a clear masthead, an introduction, areas of interest, and links to existing profiles. It does not invent education, roles, projects, publications, availability, or contact details. Add those sections when verified material is ready to publish.
 
-Bright azure, white, and soft pink retain the illustrated album-cover feeling the owner likes. The image remains behind the name rather than competing with it. The setting is an illustration, not a claim about where Rain lives.
+The landing copy currently reflects the interests Rain has shared: applied mathematics, statistics, data science, computer science, and machine learning. The plain accessible heading and document title use “Rain Piao,” while the visual wordmark uses **ℝain ℙiao**.
 
-## Name treatment
+## Composition and motion
 
-The visual wordmark reads **ℝain ℙiao**. Blackboard-bold ℝ evokes the real numbers and ℙ evokes probability. The remaining letters stay conventional so the name remains legible. A fine underline takes inspiration from the name example supplied by the owner. The accessible heading and browser title use the plain name **Rain Piao**. The name is live text, not baked into the image.
+The supplied skyline is a vivid, full-width banner with rounded lower corners. The wordmark sits over open sky. A narrow navigation strip overlaps the bottom edge and stays available while scrolling. A restrained, translucent reading panel sits over a stationary, softly veiled version of the artwork; the glass blur samples the background behind the panel as it moves. This is rendered live with CSS `backdrop-filter`, with a solid, more opaque fallback.
 
-## Palette
+On a first visit in a tab, the wordmark appears at the center of the viewport, its underline draws in, and the decorative wordmark moves into alignment with the permanent masthead. The full-screen artwork fades to reveal the banner and page underneath. The sequence lasts about 1.1 seconds and can be dismissed by scrolling, clicking, tapping, pressing Tab, or pressing Escape. A hash link, reduced-motion preference, or Simple display mode skips the sequence. The real heading and page content exist before the animation, and without JavaScript the complete page remains visible.
 
-| Token | Color | Purpose |
+The Atmosphere/Simple control changes the reading surfaces while keeping the same content and preserving page position. It stores the choice locally when browser storage is available. Reduced-motion preference is respected independently.
+
+## Name and palette
+
+**ℝ** nods to the real numbers; **ℙ** nods to probability. The blackboard-bold initials give the name a mathematical accent while the other letters remain familiar. The underlining is a quiet reference to the example Rain shared.
+
+| Token | Color | Use |
 | --- | --- | --- |
-| Sky | `#d8edfa` | Fallback page background |
-| Paper | `#fffaf7` | Gentle light behind the name |
-| Pink | `#efacd0` | Underline accent and text selection |
-| Ink | `#173f70` | Name and typography |
+| Navy | `#173F70` | Wordmark, headings, and primary text |
+| Warm white | `#FFFAF7` | Reading surface and page base |
+| Pale sky | `#D8EDFA` | Sky-toned fallback |
+| Pink | `#EFACD0` | Underline, focus, and small accents |
 
-The image supplies the stronger blue and pink hues. All colors are editable in `assets/styles/main.css`.
+The image provides most of the page’s brighter blue and pink. Body copy uses a clean system sans-serif; the wordmark and large headings use a local serif stack. No external font download is needed.
 
-## Artwork and references
+## Artwork and inspiration
 
-`assets/images/sky.webp` is an optimized WebP copy of **Pastel Skyline Under Cherry Blossom Skies.png**, an image supplied by the owner on 2026-10-13. The original PNG remains with the owner. No Xeuphoria album artwork is distributed with this site.
+`assets/images/sky.webp` is an optimized WebP copy of **Pastel Skyline Under Cherry Blossom Skies**, an AI-generated image supplied by Rain on 2026-10-13. The source PNG remains with Rain. No Xeuphoria album artwork is distributed with this site.
 
-Mood and palette references requested by the owner:
+The color and atmosphere reference requested by Rain includes:
 
 - [Xeuphoria — Piano Book](https://music.apple.com/us/album/piano-book/1800022237)
 - [Xeuphoria — Piano Sessions: Sakura](https://www.xeuphoria.com/)
 - [Xeuphoria — Piano Sessions: Reflections](https://www.youtube.com/watch?v=TvSZGenmAlk)
-- [Xeuphoria — Evolve, containing Nerves](https://officialxeuphoria.bandcamp.com/album/evolve)
+- [Xeuphoria — Evolve, containing “Nerves”](https://officialxeuphoria.bandcamp.com/album/evolve)
 
-These informed color and atmosphere, not an affiliation or endorsement.
+The README opens with Rain’s personal tribute to Xeuphoria, whose piano sessions accompanied them while studying, thinking, and unwinding. The site’s visual direction is a homage to the worlds their music and album artwork evoke; this does not imply affiliation or endorsement.
 
-## Future writing panels: 毛玻璃
+## Updating the site
 
-For later writing sections, use a restrained live glass panel over the stationary background. CSS `backdrop-filter: blur(...) saturate(...)` samples and filters the pixels behind the panel. As the content panel moves during scrolling, it samples a new part of the fixed background, creating the moving-through-glass effect. A second frozen or continually regenerated image is unnecessary; browsers perform this filter directly.
-
-Start with a modest blur (around `12px`), a translucent white fill, a subtle white border, and a soft shadow. Preserve strong text contrast with a more opaque fill. Add an opaque fill fallback for browsers that do not support `backdrop-filter`. Keep the artwork stationary in the viewport while content scrolls over it. The name-only page has no panels yet; apply this decision when writing is added.
-
-## Replacing the background
-
-Replace `assets/images/sky.webp` with an optimized image, update its intrinsic dimensions in `index.html` if they differ, and check both wide and narrow views. Preserve `alt=""` because the image is decorative. Record the new source and review it through a feature branch and pull request.
+Keep content in semantic HTML and styles in `assets/styles/main.css`. The small `assets/scripts/main.js` file handles only the intro sequence, display preference, and current section indication. Keep asset URLs relative so they work beneath `/rainpiao/` on GitHub Pages. Record any replacement artwork’s source and provenance here, and do not add album artwork used as visual reference.

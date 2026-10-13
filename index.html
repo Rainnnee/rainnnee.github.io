@@ -4,16 +4,83 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#d8edfa">
-    <meta name="description" content="Rain Piao's personal website.">
+    <meta name="description" content="The personal website of Rain Piao, exploring applied mathematics, statistics, data science, computer science, and machine learning.">
     <title>Rain Piao</title>
+    <link rel="preload" as="image" href="./assets/images/sky.webp" fetchpriority="high">
     <link rel="stylesheet" href="./assets/styles/main.css">
+    <script src="./assets/scripts/main.js" defer></script>
   </head>
   <body>
-    <main class="landing">
-      <img class="landscape" src="./assets/images/sky.webp" alt="" fetchpriority="high" width="1672" height="941">
-      <h1 class="name" aria-label="Rain Piao">
-        <span aria-hidden="true"><span class="initial">ℝ</span>ain <span class="initial">ℙ</span>iao</span>
-      </h1>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+
+    <div class="intro" aria-hidden="true" hidden>
+      <img class="intro__art" src="./assets/images/sky.webp" alt="">
+      <div class="intro__wash"></div>
+      <div class="intro__wordmark" aria-hidden="true">
+        <span><span class="initial">ℝ</span>ain <span class="initial">ℙ</span>iao</span>
+      </div>
+    </div>
+
+    <header class="masthead" id="top">
+      <img class="masthead__art" src="./assets/images/sky.webp" alt="" fetchpriority="high" width="1672" height="941">
+      <div class="masthead__wash" aria-hidden="true"></div>
+      <div class="masthead__inner">
+        <h1 class="wordmark" aria-label="Rain Piao">
+          <span aria-hidden="true"><span class="initial">ℝ</span>ain <span class="initial">ℙ</span>iao</span>
+        </h1>
+      </div>
+    </header>
+
+    <nav class="site-nav" aria-label="Main navigation">
+      <a class="site-nav__home" href="#top" aria-label="Rain Piao, back to top">Rain Piao</a>
+      <div class="site-nav__links">
+        <a href="#about">About</a>
+        <a href="#interests">Interests</a>
+      </div>
+      <button class="mode-toggle" type="button" aria-pressed="false" aria-label="Switch to Simple mode" hidden>
+        <span class="mode-toggle__icon" aria-hidden="true">◐</span>
+        <span class="mode-toggle__label">Atmosphere</span>
+      </button>
+    </nav>
+
+    <main id="main-content" class="page-content">
+      <section class="intro-copy content-width" id="about" aria-labelledby="about-title">
+        <div class="intro-copy__heading">
+          <p class="eyebrow">A personal portfolio</p>
+          <h2 id="about-title">Hello, I’m Rain Piao.</h2>
+        </div>
+        <div class="intro-copy__body glass-panel">
+          <p class="intro-copy__lead">My interests span applied mathematics, statistics, data science, computer science, and machine learning.</p>
+          <p>This is a home for the work, ideas, and questions I collect across those fields. I’ll add more as I’m ready to share it.</p>
+          <a class="text-link" href="#interests">Explore my interests <span aria-hidden="true">↓</span></a>
+        </div>
+      </section>
+
+      <section class="interests content-width" id="interests" aria-labelledby="interests-title">
+        <div class="section-heading">
+          <p class="eyebrow">Where my curiosity wanders</p>
+          <h2 id="interests-title">Areas of interest</h2>
+        </div>
+        <ul class="interest-list" aria-label="Rain Piao's areas of interest">
+          <li>Applied mathematics</li>
+          <li>Statistics</li>
+          <li>Data science</li>
+          <li>Computer science</li>
+          <li>Machine learning</li>
+        </ul>
+      </section>
     </main>
+
+    <footer class="site-footer content-width">
+      <div class="site-footer__identity">
+        <a class="site-footer__name" href="#top">Rain Piao</a>
+        <p>Mathematics, data, and computation.</p>
+      </div>
+      <div class="site-footer__links" aria-label="Elsewhere">
+        <a href="https://github.com/Rainnnee">GitHub <span aria-hidden="true">↗</span></a>
+        <a href="https://www.linkedin.com/in/its-rain-piao-yay/">LinkedIn <span aria-hidden="true">↗</span></a>
+      </div>
+      <p class="site-footer__credit">Visual inspiration: <a href="https://www.xeuphoria.com/">Xeuphoria</a></p>
+    </footer>
   </body>
 </html>
