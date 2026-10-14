@@ -18,11 +18,15 @@ HTML, CSS, and a small amount of JavaScript, hosted on GitHub Pages. No build st
 
 ```text
 index.html                 Page structure and metadata
+projects/                   Detail pages for selected projects
 assets/styles/main.css     Layout, typography, and color theme
+assets/styles/project-pages.css Detail-page layout
 assets/scripts/main.js     Intro animation and display preference
+assets/scripts/project-detail.js Mode switch on project pages
 assets/images/sky-full.png Pixel-preserving supplied skyline
 assets/images/sky-preview.jpg Fast-loading skyline preview
 assets/images/rain-piao-headshot.jpg Optimized profile portrait
+assets/audio/               Web-ready copies of selected music
 docs/design.md             Design decisions and artwork provenance
 CONTRIBUTING.md            Development and publishing workflow
 .github/                   Pull request template

@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#d8edfa">
+    <title>ASA DataFest — Rain Piao</title>
+    <script>
+      try {
+        document.documentElement.dataset.mode = localStorage.getItem("rainpiao-mode") === "accessible" ? "accessible" : "animated";
+      } catch {
+        document.documentElement.dataset.mode = "animated";
+      }
+    </script>
+    <link rel="stylesheet" href="../assets/styles/main.css?v=20261014-12">
+    <link rel="stylesheet" href="../assets/styles/project-pages.css?v=20261014-1">
+    <script src="../assets/scripts/project-detail.js?v=20261014-1" defer></script>
+  </head>
+  <body data-mode="animated">
+    <script>document.body.dataset.mode = document.documentElement.dataset.mode || "animated";</script>
+    <img class="sky-background" src="../assets/images/sky-full.png?v=20261013-7" alt="" width="3344" height="1880" decoding="async">
+    <header class="project-detail-nav">
+      <a class="project-detail-nav__back" href="../index.html#projects">← All projects</a>
+      <a class="project-detail-nav__name" href="../index.html">ℝain ℙiao</a>
+      <button class="mode-toggle" type="button" role="switch" aria-checked="false" aria-label="Switch to Reading mode" hidden>
+        <span class="mode-toggle__option mode-toggle__option--immersive">Immersive</span>
+        <span class="mode-toggle__track" aria-hidden="true"><span class="mode-toggle__thumb"></span></span>
+        <span class="mode-toggle__option mode-toggle__option--reading">Reading</span>
+      </button>
+    </header>
+    <main class="project-detail content-width">
+      <article>
+        <div class="project-detail__hero">
+          <div>
+            <p class="project-detail__eyebrow">Competition · ASA DataFest at UCLA · May 2026</p>
+            <h1>Making sense of healthcare data</h1>
+            <p class="project-detail__summary">A 48-hour team analysis of de-identified patient data, ending with recommendations for cancer care.</p>
+          </div>
+          <img class="project-detail__mark" src="../assets/images/datafest-logo.png" alt="" aria-hidden="true" width="100" height="100">
+        </div>
+        <section class="project-detail__section" aria-labelledby="snapshot-title">
+          <h2 id="snapshot-title">Project snapshot</h2>
+          <dl class="project-detail__facts">
+            <div><dt>Role</dt><dd>Team coordinator</dd></div>
+            <div><dt>Team</dt><dd>Five people</dd></div>
+            <div><dt>Tools</dt><dd>R · Visualization · Rank correlation</dd></div>
+          </dl>
+        </section>
+        <section class="project-detail__section" aria-labelledby="approach-title">
+          <h2 id="approach-title">Approach</h2>
+          <p>Our team explored relationships among stress, age, encounter volume, and social needs in a de-identified patient dataset. I coordinated the five-person team as we worked through the analysis and prepared a final presentation.</p>
+          <p>We used R, visualizations, and rank correlation to examine the data, then presented recommendations for cancer care.</p>
+        </section>
+      </article>
+      <a class="project-detail__back-bottom" href="../index.html#projects">← Back to all projects</a>
+    </main>
+  </body>
+</html>

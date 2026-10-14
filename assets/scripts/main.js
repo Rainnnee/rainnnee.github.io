@@ -4,14 +4,20 @@
   const toggle = document.querySelector(".mode-toggle");
   const scrollCue = document.querySelector(".scroll-cue");
   const masthead = document.querySelector(".masthead");
-  const navigation = document.querySelector(".site-nav");
+  const pageContent = document.querySelector(".page-content");
   const fullSky = document.querySelector(".sky-background");
   const initialHash = window.location.hash;
   let finishIntro = () => {};
 
   function updateBlurBoundary() {
-    const boundary = Math.max(0, navigation.getBoundingClientRect().bottom);
-    root.style.setProperty("--blur-boundary", `${boundary}px`);
+    const contentTop = pageContent.getBoundingClientRect().top;
+    const viewportHeight = window.innerHeight;
+    const start = Math.min(viewportHeight, Math.max(0, contentTop - 40));
+    const middle = Math.min(viewportHeight + 160, Math.max(start + 1, contentTop + 80));
+    const end = Math.min(viewportHeight + 320, Math.max(middle + 1, contentTop + 280));
+    root.style.setProperty("--blur-ramp-start", `${start}px`);
+    root.style.setProperty("--blur-ramp-middle", `${middle}px`);
+    root.style.setProperty("--blur-ramp-end", `${end}px`);
   }
 
   let boundaryFrame = 0;
@@ -69,7 +75,7 @@
   if ("ResizeObserver" in window) {
     const boundaryObserver = new ResizeObserver(scheduleBlurBoundaryUpdate);
     boundaryObserver.observe(masthead);
-    boundaryObserver.observe(navigation);
+    boundaryObserver.observe(pageContent);
   }
   window.addEventListener("scroll", scheduleBlurBoundaryUpdate, { passive: true });
   window.addEventListener("resize", scheduleBlurBoundaryUpdate, { passive: true });
@@ -97,13 +103,11 @@
   }
 
   function playIntro() {
-    if (root.dataset.intro !== "ready" || body.dataset.mode === "accessible") return;
-    if (initialHash) {
-      const previousBehavior = document.documentElement.style.scrollBehavior;
-      document.documentElement.style.scrollBehavior = "auto";
-      window.scrollTo(0, 0);
-      document.documentElement.style.scrollBehavior = previousBehavior;
-    }
+    if (root.dataset.intro !== "name" || body.dataset.mode === "accessible") return;
+    const previousBehavior = document.documentElement.style.scrollBehavior;
+    document.documentElement.style.scrollBehavior = "auto";
+    window.scrollTo(0, 0);
+    document.documentElement.style.scrollBehavior = previousBehavior;
 
     let finished = false;
     finishIntro = () => {
@@ -138,10 +142,11 @@
     window.addEventListener("scroll", onScroll, { passive: true, once: true });
     window.addEventListener("pointerdown", onInteract, { once: true });
     window.addEventListener("touchstart", onInteract, { once: true, passive: true });
-    requestAnimationFrame(() => {
-      delete root.dataset.intro;
-    });
-    window.setTimeout(finishIntro, 1650);
+
+    window.setTimeout(() => {
+      if (root.dataset.intro === "name") root.dataset.intro = "lift";
+    }, 2000);
+    window.setTimeout(finishIntro, 3800);
   }
 
   scrollCue.addEventListener("click", () => {
