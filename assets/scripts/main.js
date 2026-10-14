@@ -3,8 +3,39 @@
   const root = document.documentElement;
   const toggle = document.querySelector(".mode-toggle");
   const scrollCue = document.querySelector(".scroll-cue");
+  const masthead = document.querySelector(".masthead");
+  const navigation = document.querySelector(".site-nav");
+  const fullSky = document.querySelector(".sky-background");
   const initialHash = window.location.hash;
   let finishIntro = () => {};
+
+  function updateBlurBoundary() {
+    const boundary = Math.max(0, navigation.getBoundingClientRect().bottom);
+    root.style.setProperty("--blur-boundary", `${boundary}px`);
+  }
+
+  let boundaryFrame = 0;
+  function scheduleBlurBoundaryUpdate() {
+    if (boundaryFrame) return;
+    boundaryFrame = window.requestAnimationFrame(() => {
+      boundaryFrame = 0;
+      updateBlurBoundary();
+    });
+  }
+
+  function revealFullSky() {
+    root.dataset.imageLoaded = "true";
+    delete root.dataset.imageLoading;
+  }
+
+  if (fullSky.complete) {
+    if (fullSky.naturalWidth > 0) revealFullSky();
+  } else {
+    fullSky.addEventListener("load", () => {
+      const ready = typeof fullSky.decode === "function" ? fullSky.decode() : Promise.resolve();
+      ready.catch(() => {}).finally(revealFullSky);
+    }, { once: true });
+  }
 
   function readMode() {
     try {
@@ -34,8 +65,17 @@
 
   setMode(readMode());
   toggle.hidden = false;
+  updateBlurBoundary();
+  if ("ResizeObserver" in window) {
+    const boundaryObserver = new ResizeObserver(scheduleBlurBoundaryUpdate);
+    boundaryObserver.observe(masthead);
+    boundaryObserver.observe(navigation);
+  }
+  window.addEventListener("scroll", scheduleBlurBoundaryUpdate, { passive: true });
+  window.addEventListener("resize", scheduleBlurBoundaryUpdate, { passive: true });
   toggle.addEventListener("click", () => {
     setMode(body.dataset.mode === "accessible" ? "animated" : "accessible", true);
+    scheduleBlurBoundaryUpdate();
   });
 
   const navLinks = [...document.querySelectorAll('.site-nav a[href^="#"]')]

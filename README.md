@@ -20,7 +20,9 @@ HTML, CSS, and a small amount of JavaScript, hosted on GitHub Pages. No build st
 index.html                 Page structure and metadata
 assets/styles/main.css     Layout, typography, and color theme
 assets/scripts/main.js     Intro animation and display preference
-assets/images/sky.webp     Optimized website artwork
+assets/images/sky-full.png Pixel-preserving supplied skyline
+assets/images/sky-preview.jpg Fast-loading skyline preview
+assets/images/rain-piao-headshot.jpg Optimized profile portrait
 docs/design.md             Design decisions and artwork provenance
 CONTRIBUTING.md            Development and publishing workflow
 .github/                   Pull request template
@@ -46,4 +48,4 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the workflow.
 
 ## Artwork
 
-The website background is an AI-generated image supplied by me. Its visual direction is inspired by Xeuphoria’s album artwork; the image itself was not created by Xeuphoria. No Xeuphoria album artwork is distributed with this site.
+The website background is an AI-generated image supplied by me. Its visual direction is inspired by Xeuphoria’s album artwork; the image itself was not created by Xeuphoria. The full-resolution PNG is retained without recompression; a small preview appears first and fades into the full image after it loads. No Xeuphoria album artwork is distributed with this site.

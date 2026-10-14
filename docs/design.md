@@ -8,9 +8,9 @@ The landing copy currently reflects the interests Rain has shared: applied mathe
 
 ## Two presentation modes
 
-The default Immersive mode uses the supplied skyline as a vivid masthead and as a soft background behind translucent reading panels. The blur is rendered live with CSS `backdrop-filter`, with a solid fallback. Navigation overlaps the masthead, and the page uses generous spacing to keep each section distinct.
+The default Immersive mode uses the supplied skyline as a vivid masthead and as a soft background behind translucent reading panels. Navigation overlaps the masthead. A live CSS `backdrop-filter` layer begins just below the navigation, keeping the title and banner crisp while softening the page behind the cards. The blur boundary is measured from the navigation's lower edge, so it moves with the navigation as the masthead contracts and while the navigation sticks during scrolling.
 
-On each page load in Immersive mode, one fixed sky image stays in place while the name moves from the center of the viewport into the shorter masthead. The name resolves from blur to clear; its underline expands outward from the center. The masthead contracts at the same time as the title moves, avoiding a second upward shift. Navigation and page content rise in from below. A translucent wash softens and slightly desaturates the backdrop below the masthead while keeping the sky colorful; glass panels remain for content cards. The page is not locked during the sequence: scrolling, clicking, tapping, Tab, or Escape dismisses it. A small oval down-arrow appears when a mouse pointer reaches the bottom edge; touch screens get the cue after the intro. A section link restores its target after the opening sequence.
+On each page load in Immersive mode, one fixed sky image stays in place while the name moves from the center of the viewport into the shorter masthead. The name resolves from blur to clear; its underline expands outward from the center. The masthead contracts at the same time as the title moves. The navigation and the blur boundary move together, gradually placing the blurred layer beneath the navigation. The page is not locked during the sequence: scrolling, clicking, tapping, Tab, or Escape dismisses it. A small oval down-arrow appears when a mouse pointer reaches the bottom edge; touch screens get the cue after the intro. A section link restores its target after the opening sequence.
 
 One two-position switch changes between Immersive and Reading modes. Reading is a deliberately calmer, denser layout: white background, familiar serif type, compact spacing, plain panels, and no opening or scroll animation. It keeps the same semantic content and links. The selected mode is saved locally; Immersive is the default. Keyboard focus, skip navigation, clear headings, and readable contrast are available in both modes.
 
@@ -31,7 +31,9 @@ The image provides most of the page’s brighter blue and pink in Immersive mode
 
 ## Artwork and inspiration
 
-`assets/images/sky.webp` is an optimized WebP copy of **Pastel Skyline Under Cherry Blossom Skies**, an AI-generated image supplied by Rain on 2026-10-13. The 1672 × 941 image is compressed to about 168 KB and preloaded for the first screen. The source PNG remains with Rain. No Xeuphoria album artwork is distributed with this site.
+`assets/images/sky-full.png` is the 3344 × 1880 PNG supplied by Rain on 2026-10-13. It is stored byte-for-byte, without lossy compression or resizing. `assets/images/sky-preview.jpg` is a 1600 × 899 preview displayed immediately while the full PNG loads; the crisp image fades in once the browser has decoded it. The preview uses the same crop as the full image. No Xeuphoria album artwork is distributed with this site.
+
+`assets/images/rain-piao-headshot.jpg` is a 1001 × 1400 web-sized copy of Rain’s supplied portrait. It keeps the original photo and natural colors; CSS frames it as a rounded arch beside the About section, with a plain rectangular frame in Reading mode. The original PNG is not included in the repository.
 
 The color and atmosphere reference requested by Rain includes:
 
