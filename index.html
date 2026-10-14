@@ -13,7 +13,7 @@
         document.documentElement.dataset.mode = "animated";
       }
       document.documentElement.dataset.imageLoading = "true";
-      if (document.documentElement.dataset.mode !== "accessible" && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      if (document.documentElement.dataset.mode !== "accessible") {
         document.documentElement.dataset.intro = "ready";
         window.setTimeout(() => {
           if (document.documentElement.dataset.intro === "ready") delete document.documentElement.dataset.intro;
@@ -21,8 +21,8 @@
       }
     </script>
     <link rel="preload" as="image" href="./assets/images/sky-preview.jpg?v=20261013-7" fetchpriority="high">
-    <link rel="stylesheet" href="./assets/styles/main.css?v=20261013-7">
-    <script src="./assets/scripts/main.js?v=20261013-7" defer></script>
+    <link rel="stylesheet" href="./assets/styles/main.css?v=20261014-1">
+    <script src="./assets/scripts/main.js?v=20261014-1" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to content</a>
