@@ -102,6 +102,111 @@
     for (const { section } of navLinks) observer.observe(section);
   }
 
+  function formatTrackTime(seconds) {
+    const wholeSeconds = Math.max(0, Math.floor(Number.isFinite(seconds) ? seconds : 0));
+    return `${Math.floor(wholeSeconds / 60)}:${String(wholeSeconds % 60).padStart(2, "0")}`;
+  }
+
+  for (const player of document.querySelectorAll("[data-track-player]")) {
+    const audio = player.querySelector("audio");
+    const playButton = player.querySelector(".track-player__play");
+    const waveform = player.querySelector(".track-waveform");
+    const timeReadout = player.querySelector(".track-player__current");
+    const durationReadout = player.querySelector(".track-player__time time:last-of-type");
+    const status = player.querySelector(".track-player__status");
+    if (!audio || !playButton || !waveform || !timeReadout || !durationReadout) continue;
+
+    const name = player.dataset.trackName || "audio sample";
+    const knownDuration = Number(player.dataset.duration) || 0;
+    let pendingSeek = null;
+    let metadataRequested = false;
+
+    function duration() {
+      return Number.isFinite(audio.duration) && audio.duration > 0 ? audio.duration : knownDuration;
+    }
+
+    function renderProgress(seconds = audio.currentTime) {
+      const total = duration();
+      const current = Math.max(0, Math.min(total, Number.isFinite(seconds) ? seconds : 0));
+      const ratio = total > 0 ? current / total : 0;
+      waveform.style.setProperty("--played", `${ratio * 100}%`);
+      waveform.max = String(total);
+      waveform.value = String(current);
+      waveform.setAttribute("aria-valuetext", `${formatTrackTime(current)} of ${formatTrackTime(total)}`);
+      timeReadout.textContent = formatTrackTime(current);
+      timeReadout.dateTime = `PT${Math.floor(current)}S`;
+      durationReadout.textContent = formatTrackTime(total);
+    }
+
+    function seekTo(seconds) {
+      const target = Math.max(0, Math.min(duration(), seconds));
+      pendingSeek = target;
+      renderProgress(target);
+      if (audio.readyState >= 1 && Number.isFinite(audio.duration)) {
+        audio.currentTime = Math.min(target, audio.duration);
+        pendingSeek = null;
+      } else if (!metadataRequested) {
+        metadataRequested = true;
+        audio.load();
+      }
+    }
+
+    function setPlaying(isPlaying) {
+      playButton.setAttribute("aria-pressed", String(isPlaying));
+      playButton.setAttribute("aria-label", `${isPlaying ? "Pause" : "Play"} ${name}`);
+    }
+
+    playButton.hidden = false;
+    waveform.hidden = false;
+    player.querySelector(".track-player__time").hidden = false;
+    player.classList.add("track-player--enhanced");
+    audio.controls = false;
+    audio.setAttribute("aria-hidden", "true");
+    audio.tabIndex = -1;
+    renderProgress(0);
+
+    playButton.addEventListener("click", async () => {
+      if (!audio.paused) {
+        audio.pause();
+        return;
+      }
+      for (const otherAudio of document.querySelectorAll("[data-track-player] audio")) {
+        if (otherAudio !== audio) otherAudio.pause();
+      }
+      if (status) status.hidden = true;
+      try {
+        await audio.play();
+      } catch {
+        if (status) {
+          status.textContent = `“${name}” could not be played. Try again in a moment.`;
+          status.hidden = false;
+        }
+      }
+    });
+
+    audio.addEventListener("play", () => setPlaying(true));
+    audio.addEventListener("pause", () => setPlaying(false));
+    audio.addEventListener("timeupdate", () => renderProgress());
+    audio.addEventListener("durationchange", () => renderProgress(pendingSeek ?? audio.currentTime));
+    audio.addEventListener("loadedmetadata", () => {
+      metadataRequested = false;
+      if (pendingSeek !== null) {
+        audio.currentTime = Math.min(pendingSeek, audio.duration);
+        pendingSeek = null;
+      }
+      renderProgress();
+    });
+    audio.addEventListener("ended", () => setPlaying(false));
+    audio.addEventListener("error", () => {
+      if (status) {
+        status.textContent = `“${name}” could not be loaded. Please try again later.`;
+        status.hidden = false;
+      }
+      metadataRequested = false;
+    });
+    waveform.addEventListener("input", () => seekTo(Number(waveform.value)));
+  }
+
   function playIntro() {
     if (root.dataset.intro !== "name" || body.dataset.mode === "accessible") return;
     const previousBehavior = document.documentElement.style.scrollBehavior;
