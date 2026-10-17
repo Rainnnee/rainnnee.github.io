@@ -102,6 +102,51 @@
     for (const { section } of navLinks) observer.observe(section);
   }
 
+  const experience = document.querySelector(".experience");
+  const experienceTrack = document.querySelector("[data-experience-track]");
+  if (experience && experienceTrack) {
+    const cards = [...experienceTrack.querySelectorAll(":scope > .project-card")];
+    const count = experience.querySelector("[data-experience-count]");
+    const previous = experience.querySelector("[data-experience-previous]");
+    const next = experience.querySelector("[data-experience-next]");
+    let activeCard = 0;
+    let scrollFrame = 0;
+
+    function updateExperienceControls() {
+      scrollFrame = 0;
+      const trackLeft = experienceTrack.getBoundingClientRect().left;
+      activeCard = cards.reduce((nearest, card, index) => {
+        const distance = Math.abs(card.getBoundingClientRect().left - trackLeft);
+        const nearestDistance = Math.abs(cards[nearest].getBoundingClientRect().left - trackLeft);
+        return distance < nearestDistance ? index : nearest;
+      }, 0);
+      count.textContent = `${String(activeCard + 1).padStart(2, "0")} / ${String(cards.length).padStart(2, "0")}`;
+      previous.disabled = activeCard === 0;
+      next.disabled = activeCard === cards.length - 1;
+    }
+
+    function scheduleExperienceControlsUpdate() {
+      if (scrollFrame) return;
+      scrollFrame = window.requestAnimationFrame(updateExperienceControls);
+    }
+
+    function showExperienceCard(index) {
+      const target = Math.max(0, Math.min(cards.length - 1, index));
+      cards[target].scrollIntoView({
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+        block: "nearest",
+        inline: "start",
+      });
+    }
+
+    previous.addEventListener("click", () => showExperienceCard(activeCard - 1));
+    next.addEventListener("click", () => showExperienceCard(activeCard + 1));
+    experienceTrack.addEventListener("scroll", scheduleExperienceControlsUpdate, { passive: true });
+    window.addEventListener("resize", scheduleExperienceControlsUpdate, { passive: true });
+    experience.classList.add("experience--ready");
+    updateExperienceControls();
+  }
+
   function formatTrackTime(seconds) {
     const wholeSeconds = Math.max(0, Math.floor(Number.isFinite(seconds) ? seconds : 0));
     return `${Math.floor(wholeSeconds / 60)}:${String(wholeSeconds % 60).padStart(2, "0")}`;
