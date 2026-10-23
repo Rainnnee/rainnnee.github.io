@@ -21,8 +21,9 @@
       }
     </script>
     <link rel="preload" as="image" href="./assets/images/sky-preview.jpg?v=20261013-7" fetchpriority="high">
-    <link rel="stylesheet" href="./assets/styles/main.css?v=20261017-1">
-    <script src="./assets/scripts/main.js?v=20261014-10" defer></script>
+    <link rel="preload" as="font" href="./assets/fonts/caveat-latin-500.woff2" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="./assets/styles/main.css?v=20261022-signature">
+    <script src="./assets/scripts/main.js?v=20261017-2" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to content</a>
@@ -42,9 +43,9 @@
       <div class="site-nav__links">
         <a href="#about">About</a>
         <a href="#education">Education</a>
-        <a href="#research">Research</a>
-        <a href="#projects">Projects</a>
-        <a href="#interests">Interests</a>
+        <a href="#experience">Experience</a>
+        <a href="#skills">Skills</a>
+        <a href="#interests">What I’m into</a>
         <a href="#music">Music</a>
       </div>
       <button class="mode-toggle" type="button" role="switch" aria-checked="false" aria-label="Switch to Reading mode" hidden>
@@ -62,7 +63,10 @@
       <section class="intro-copy content-width" id="about" aria-labelledby="about-title">
         <div class="intro-copy__heading">
           <p class="eyebrow">A personal portfolio</p>
-          <h2 id="about-title">Hello, I’m Rain Piao.</h2>
+          <h2 class="signature-name signature-name--image" id="about-title" aria-label="Rain Piao">
+            <svg viewBox="145 125 710 350" aria-hidden="true" focusable="false"><defs><filter id="signature-ink" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="0 0 0 0 0.07 0 0 0 0 0.12 0 0 0 0 0.18 -0.3333 -0.3333 -0.3333 0 1"/></filter></defs><image href="./assets/images/rain-piao-signature.jpg" width="1035" height="645" filter="url(#signature-ink)"/></svg>
+            <span class="signature-name__plain" aria-hidden="true">Rain Piao</span>
+          </h2>
         </div>
         <div class="intro-copy__body glass-panel">
           <p class="intro-copy__lead">My interests span applied mathematics, statistics, data science, computer science, and machine learning.</p>
@@ -92,33 +96,34 @@
         </article>
       </section>
 
-      <section class="research content-width" id="research" aria-labelledby="research-title">
-        <div class="section-heading">
-          <p class="eyebrow">Questions at the edge of vision</p>
-          <h2 id="research-title">Research</h2>
-        </div>
-        <article class="feature-card feature-card--research">
-          <div class="feature-card__topline"><span class="organization-mark organization-mark--bruinml"><img src="./assets/images/bruinml-logo.jpg?v=20261014-1" alt="" aria-hidden="true" width="200" height="200" loading="lazy" decoding="async"><span>BruinML</span></span><span>Undergraduate Researcher · 2026–present</span></div>
-          <h3>Finding small unfamiliar regions in images</h3>
-          <p class="research-card__status">Paper submitted to ALT · awaiting decision</p>
-          <p>I work with a five-person team on training-free methods for detecting small out-of-distribution regions using frozen CLIP patch features. I extended a Python Monte Carlo study across 225 experimental settings and evaluated a spatial-scan method that improved simulated detection power under Gaussian-mixture noise.</p>
-          <div class="tag-row" aria-label="Research topics"><span>Machine learning</span><span>Computer vision</span><span>Statistical detection</span><span>Python</span></div>
-        </article>
-      </section>
-
-      <section class="projects content-width" id="projects" aria-labelledby="projects-title">
+      <section class="experience content-width" id="experience" aria-labelledby="experience-title">
         <div class="section-heading section-heading--projects">
           <div>
-            <p class="eyebrow">A few things I’ve built and explored</p>
-            <h2 id="projects-title">Projects &amp; competitions</h2>
+            <p class="eyebrow">Research, projects, and competitions</p>
+            <h2 id="experience-title">Experience</h2>
           </div>
-          <span class="section-heading__index" aria-hidden="true">01 — 04</span>
+          <div class="experience-controls" aria-label="Experience gallery controls">
+            <span class="section-heading__index" data-experience-count aria-live="polite">01 / 05</span>
+            <button class="experience-controls__button" type="button" data-experience-previous aria-label="Show previous experience" disabled><span aria-hidden="true">←</span></button>
+            <button class="experience-controls__button" type="button" data-experience-next aria-label="Show next experience"><span aria-hidden="true">→</span></button>
+          </div>
         </div>
-        <div class="project-grid">
-          <article class="project-card project-card--sky">
-            <div class="project-card__identity" aria-hidden="true"><span class="project-mark project-mark--acm">acm<span>.</span>ai</span></div>
+        <div class="experience-track" data-experience-track tabindex="0" aria-label="Experience cards; scroll horizontally to browse">
+          <article class="project-card experience-card experience-card--research project-card--sky" data-experience-card>
+            <div class="project-card__identity" aria-hidden="true"><img class="project-mark project-mark--bruinml" src="./assets/images/bruinml-logo.jpg" alt="" width="200" height="200" loading="lazy" decoding="async"></div>
             <div class="project-card__number">01</div>
-            <p class="project-card__meta">ACM AI · Poker Decision Model · Fall 2026–present</p>
+            <p class="project-card__meta">BruinML <span>·</span> Research <span>·</span> 2026–present</p>
+            <h3>Finding small unfamiliar regions in images</h3>
+            <p class="research-card__status">Paper submitted to ALT · awaiting decision</p>
+            <p>I work with a five-person team on training-free methods for detecting small out-of-distribution regions using frozen CLIP patch features. I extended a Python Monte Carlo study across 225 experimental settings and evaluated a spatial-scan method that improved simulated detection power under Gaussian-mixture noise.</p>
+            <div class="project-card__footer">
+              <div class="tag-row" aria-label="Research topics"><span>Machine learning</span><span>Computer vision</span><span>Statistical detection</span><span>Python</span></div>
+            </div>
+          </article>
+          <article class="project-card experience-card project-card--lilac">
+            <div class="project-card__identity" aria-hidden="true"><img class="project-mark project-mark--acm-ai" src="./assets/images/acm-ai-logo.png" alt="" width="400" height="400" loading="lazy" decoding="async"></div>
+            <div class="project-card__number">02</div>
+            <p class="project-card__meta">ACM AI <span>·</span> Student project <span>·</span> Fall 2026–present</p>
             <h3>Modeling poker decisions</h3>
             <p>Working with an ACM AI team to explore how the current game state and an opponent’s earlier behavior can inform the estimated probabilities of folding, calling, or raising.</p>
             <div class="project-card__footer">
@@ -126,10 +131,10 @@
               <a class="project-card__action" href="./projects/acm-ai-poker.html">Open project <span aria-hidden="true">↗</span></a>
             </div>
           </article>
-          <article class="project-card project-card--rose">
+          <article class="project-card experience-card project-card--rose">
             <div class="project-card__identity" aria-hidden="true"><img class="project-mark project-mark--datafest" src="./assets/images/datafest-logo.png" alt="" width="100" height="100"></div>
-            <div class="project-card__number">02</div>
-            <p class="project-card__meta">ASA DataFest at UCLA <span>·</span> May 2026</p>
+            <div class="project-card__number">03</div>
+            <p class="project-card__meta">ASA DataFest at UCLA <span>·</span> Team competition <span>·</span> May 2026</p>
             <h3>Making sense of healthcare data</h3>
             <p>Coordinated a five-person team in a 48-hour analysis of de-identified patient data. We used R, visualization, and rank correlation to examine stress, age, encounter volume, and social needs, then presented recommendations for cancer care.</p>
             <div class="project-card__footer">
@@ -137,10 +142,10 @@
               <a class="project-card__action" href="./projects/datafest.html">Open project <span aria-hidden="true">↗</span></a>
             </div>
           </article>
-          <article class="project-card project-card--blue">
+          <article class="project-card experience-card project-card--blue">
             <div class="project-card__identity" aria-hidden="true"><img class="project-mark project-mark--prosperity" src="./assets/images/prosperity4-official.png?v=20261014-3" alt="" width="100" height="100"></div>
-            <div class="project-card__number">03</div>
-            <p class="project-card__meta">IMC Prosperity 4 <span>·</span> Spring 2026</p>
+            <div class="project-card__number">04</div>
+            <p class="project-card__meta">IMC Prosperity 4 <span>·</span> Trading competition <span>·</span> Spring 2026</p>
             <h3>Building a trading strategy</h3>
             <p>Developed and backtested Python strategies with adaptive mean reversion, position limits, and risk controls. Our team qualified in the top 16% of 18,803 teams and competed through Round 3.</p>
             <div class="project-card__footer">
@@ -148,9 +153,9 @@
               <a class="project-card__action" href="./projects/prosperity4.html">Open project <span aria-hidden="true">↗</span></a>
             </div>
           </article>
-          <article class="project-card project-card--lilac">
+          <article class="project-card experience-card project-card--lilac">
             <div class="project-card__identity" aria-hidden="true"><img class="project-mark project-mark--seyond" src="./assets/images/seyond-logo.png?v=20261014-1" alt="" width="250" height="173"></div>
-            <div class="project-card__number">04</div>
+            <div class="project-card__number">05</div>
             <p class="project-card__meta">Independent project <span>·</span> 2025</p>
             <h3>LiDAR traffic monitoring</h3>
             <p>Implemented a 3D breadth-first-search pipeline in C++ to group LiDAR points into vehicles, create bounding boxes, track them frame by frame, and estimate speed for traffic-flow analysis.</p>
@@ -162,18 +167,35 @@
         </div>
       </section>
 
+      <section class="skills content-width" id="skills" aria-labelledby="skills-title">
+        <div class="section-heading">
+          <p class="eyebrow">Methods, tools, and ways of thinking</p>
+          <h2 id="skills-title">Skills</h2>
+        </div>
+        <div class="skills-list">
+          <details class="skill-group">
+            <summary><span>Mathematics &amp; statistics</span><span class="skill-group__count" aria-hidden="true">07</span></summary>
+            <div class="tag-row"><span>Applied mathematics</span><span>Regression analysis</span><span>Experimental design</span><span>Rank correlation</span><span>Linear algebra</span><span>Multivariable calculus</span><span>Differential equations</span></div>
+          </details>
+          <details class="skill-group">
+            <summary><span>Computing &amp; data</span><span class="skill-group__count" aria-hidden="true">05</span></summary>
+            <div class="tag-row"><span>Python</span><span>R</span><span>C++</span><span>Linux</span><span>Data visualization</span></div>
+          </details>
+          <details class="skill-group">
+            <summary><span>Machine learning &amp; research</span><span class="skill-group__count" aria-hidden="true">04</span></summary>
+            <div class="tag-row"><span>Computer vision</span><span>CLIP patch features</span><span>Monte Carlo simulation</span><span>Out-of-distribution detection</span></div>
+          </details>
+          <details class="skill-group">
+            <summary><span>Algorithms &amp; markets</span><span class="skill-group__count" aria-hidden="true">04</span></summary>
+            <div class="tag-row"><span>Algorithm design</span><span>Backtesting</span><span>Mean reversion</span><span>Risk controls</span></div>
+          </details>
+        </div>
+      </section>
+
       <section class="music content-width" id="music" aria-labelledby="music-title">
         <div class="section-heading">
           <p class="eyebrow">A different kind of practice</p>
           <h2 id="music-title">Music</h2>
-        </div>
-        <div class="music-card glass-panel">
-          <span class="music-card__note" aria-hidden="true"><img src="./assets/images/logic-pro-icon.png?v=20261014-1" alt=""></span>
-          <div>
-            <h3>Selected music work</h3>
-            <p>A couple of earlier tracks, shared as playable samples. More pieces and notes can find a home here over time.</p>
-          </div>
-          <span class="music-card__status">2 tracks</span>
         </div>
         <div class="music-grid" aria-label="Selected music tracks">
           <article class="track-card">
@@ -219,16 +241,9 @@
 
       <section class="interests content-width" id="interests" aria-labelledby="interests-title">
         <div class="section-heading">
-          <p class="eyebrow">Where my curiosity wanders</p>
-          <h2 id="interests-title">Areas of interest</h2>
+          <p class="eyebrow">Beyond coursework</p>
+          <h2 id="interests-title">What I’m into</h2>
         </div>
-        <ul class="interest-list" aria-label="Rain Piao's areas of interest">
-          <li>Applied mathematics</li>
-          <li>Statistics</li>
-          <li>Data science</li>
-          <li>Computer science</li>
-          <li>Machine learning</li>
-        </ul>
         <div class="interest-board" aria-label="Interests beyond coursework">
           <article class="interest-card interest-card--music">
             <span class="interest-card__symbol" aria-hidden="true">♫</span>
@@ -237,10 +252,22 @@
             <a href="#music">Listen to selected work <span aria-hidden="true">↗</span></a>
           </article>
           <article class="interest-card interest-card--running">
-            <span class="interest-card__symbol" aria-hidden="true">↗</span>
-            <h3>Running</h3>
-            <p>A place for a recent Nike Run Club activity, route notes, and race recaps.</p>
-            <span class="interest-card__placeholder">Run log to come</span>
+            <div class="interest-card__running-copy">
+              <span class="interest-card__symbol" aria-hidden="true">
+                <svg viewBox="0 0 48 48" focusable="false"><circle cx="31" cy="8" r="4" fill="currentColor"/><path d="m21 17 8-3 6 7 6 2M21 17l-4 9 8 5 4-8m-4 8-8 8m8-8 8 8m-20-17-5 8m23-10 2 8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.2"/></svg>
+              </span>
+              <h3>Running</h3>
+              <p class="interest-card__running-route">Jersey City · half-marathon distance</p>
+              <dl class="running-stats">
+                <div><dt>Distance</dt><dd>21.25 km</dd></div>
+                <div><dt>Workout time</dt><dd>1:46:48</dd></div>
+                <div><dt>Avg. pace</dt><dd>5′02″ / km</dd></div>
+              </dl>
+            </div>
+            <figure class="running-preview">
+              <img src="./assets/images/jersey-city-run-record.jpg" alt="Apple Fitness summary for an outdoor Jersey City run: 21.25 kilometers, 1 hour 46 minutes 48 seconds of workout time, and an average pace of 5 minutes 2 seconds per kilometer." width="1080" height="2341" loading="lazy" decoding="async">
+              <figcaption>From my Apple Watch</figcaption>
+            </figure>
           </article>
           <article class="interest-card interest-card--chess">
             <span class="interest-card__symbol interest-card__symbol--image" aria-hidden="true"><img src="./assets/images/lichess-favicon-128.png" alt="" width="128" height="128" loading="lazy" decoding="async"></span>
@@ -266,7 +293,7 @@
               <li><span><span lang="zh">《墙》</span><small>The Wall</small></span><span>No. 7</span></li>
               <li><span><span lang="zh">《生死客》</span><small>Fall play</small></span><span>Kline</span></li>
             </ul>
-            <p class="interest-card__note">For 《墙》: sound design and nine original cues. I also composed original music for 《生死客》.</p>
+            <p class="interest-card__note">For 《墙》, I joined the sound team and composed nine original cues. I also composed music for 《生死客》.</p>
             <a href="https://www.instagram.com/cfanucla/" target="_blank" rel="noopener noreferrer">CFan on Instagram <span aria-hidden="true">↗</span></a>
           </article>
           <article class="interest-card interest-card--soula">
