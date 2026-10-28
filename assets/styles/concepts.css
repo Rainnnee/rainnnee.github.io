@@ -1,0 +1,68 @@
+/* More specific vector scenes, without turning cover art into documentation. */
+.concept-preview { display: block; color: inherit; text-decoration: none; }
+.concept-preview:focus-visible { position: relative; z-index: 3; outline-offset: -4px; }
+.concept-cover { height: auto; aspect-ratio: 760 / 420; flex: none; padding: 0; }
+.concept-cover__drawing { display: block; width: 100%; height: 100%; object-fit: contain; transition: transform 650ms var(--ease-out); }
+.concept-cover .project-mark { position: absolute; left: 1.1rem; top: 1rem; width: 2.1rem; height: 2.1rem; border-radius: 4px; }
+.concept-cover .project-mark--prosperity { width: 4rem; height: 2rem; object-fit: cover; }
+.concept-cover .project-mark--seyond { width: 2.7rem; padding: .15rem; }
+.concept-cover .cover-subject { left: 1.1rem; bottom: .95rem; font-size: .6rem; letter-spacing: .11em; }
+.concept-cover .cover-number { right: 1rem; bottom: .7rem; font-size: 1.5rem; opacity: .55; }
+.concept-cover__open { position: absolute; top: 1rem; right: 1rem; display: grid; place-items: center; width: 1.5rem; height: 1.5rem; border: 1px solid currentColor; border-radius: 50%; color: inherit; font-size: .75rem; opacity: .6; transition: transform 250ms ease,opacity 250ms ease; }
+@media (hover: hover) {
+ .concept-preview:hover .concept-cover__drawing { transform: translateY(-3px); }
+ .concept-preview:hover .concept-cover__open { opacity: 1; transform: translate(2px,-2px); }
+}
+/* Light editorial details continue around the existing words. */
+.education-record { position: relative; overflow: hidden; }
+.education-record::after { content: ''; position: absolute; top: 0; right: .75rem; bottom: 0; width: 3px; border-inline: 1px solid #c7d3dc50; pointer-events: none; }
+.education-degrees { margin-block: 1.5rem; padding-block: .8rem; border-block: 1px solid #c6d3dd80; }
+.education-degrees p { display: flex; gap: .9rem; align-items: baseline; margin: 0; padding-block: .35rem; font-size: .93rem; line-height: 1.5; }
+.education-degrees p > span { flex: 0 0 2.4rem; color: #507b99; font: italic .85rem Georgia,serif; }
+.education-degrees p + p > span { color: #a65e7d; }
+.section-heading > .eyebrow, .section-heading > div > .eyebrow { display: flex; align-items: center; gap: 1rem; }
+.section-heading > .eyebrow::after, .section-heading > div > .eyebrow::after { display: block; width: 2.5rem; height: 1px; content: ''; background: currentColor; opacity: .35; }
+.music { position: relative; isolation: isolate; overflow: hidden; }
+.music > .section-heading { position: relative; z-index: 1; }
+.music-grooves { position: absolute; z-index: -1; width: 15rem; height: 15rem; top: -1rem; right: -2rem; border: 1px solid #bed6de25; border-radius: 50%; background: repeating-radial-gradient(circle at center,transparent 0 7px,#bfd8dd0c 8px 9px); }
+.music-grooves::before { position: absolute; inset: 39%; content: ''; border: 1px solid #bed6de40; border-radius: 50%; background: #87bbc012; }
+.music-grooves span { position: absolute; inset: -2rem; border: 1px solid #bed6de0c; border-radius: 50%; }
+.track-card__heading { display: flex; align-items: center; gap: 1rem; }
+.track-card__heading > div:last-child { min-width: 0; }
+.track-cover { position: relative; flex: 0 0 4rem; height: 4rem; overflow: hidden; border: 1px solid #c7e3ec30; border-radius: 3px; background: linear-gradient(150deg,#8fbfd3,#e5c5d7 63%,#658d9c); }
+.track-cover::before { content: ''; position: absolute; width: 5rem; height: 5rem; left: -1rem; top: 1.8rem; border: 1px solid #f7f4ecbb; border-radius: 50%; box-shadow: 0 0 0 .5rem #f7f4ec15,0 0 0 1rem #f7f4ec0c; }
+.track-cover > span { position: absolute; top: .7rem; right: .7rem; width: .35rem; height: .35rem; border: 1px solid #fff9efb3; border-radius: 50%; }
+.track-cover--camelia { background: linear-gradient(140deg,#a88bb8,#e2adca 60%,#5d6c9e); }
+.track-cover--camelia::before { left: .8rem; top: 1.1rem; border-radius: 40% 60% 60% 40%; transform: rotate(-25deg); }
+.track-card__credit { margin-bottom: .8rem; }
+.track-card:has(.track-player__play[aria-pressed='true']) .track-cover { box-shadow: 0 0 0 3px #a3d4df25; }
+.track-card:has(.track-player__play[aria-pressed='true']) .track-card__eyebrow::after { display: inline-block; width: .35rem; height: .35rem; margin-left: .6rem; content: ''; border-radius: 50%; background: #b7e4d3; box-shadow: 0 0 8px #b7e4d380; }
+.interest-card__credits li { position: relative; padding-left: .7rem; }
+.interest-card__credits li::before { position: absolute; left: 0; top: .5rem; width: 3px; height: 3px; content: ''; border: 1px solid #ae7283; transform: rotate(45deg); }
+.interest-card__rank-badge { filter: drop-shadow(0 6px 12px #0b152a50); transition: transform 350ms var(--ease-out); }
+@media (hover: hover) { .interest-card__stats > div:hover .interest-card__rank-badge { transform: translateY(-4px); } }
+body[data-mode='accessible'] .concept-preview { display: none; }
+body[data-mode='accessible'] .education-record::after { display: none; }
+body[data-mode='accessible'] .education-degrees { margin: .8rem 0; padding: 0; border: 0; }
+body[data-mode='accessible'] .education-degrees p { padding: .15rem 0; font-size: 1rem; }
+body[data-mode='accessible'] .education-degrees p > span { color: #333; font: inherit; }
+@media (max-width: 760px) {
+ .concept-cover .project-mark { left: .8rem; top: .7rem; width: 1.7rem; height: 1.7rem; }
+ .concept-cover .project-mark--prosperity { width: 3rem; height: 1.5rem; }
+ .concept-cover .project-mark--seyond { width: 2.2rem; }
+ .concept-cover .cover-subject { left: .8rem; bottom: .7rem; font-size: .51rem; }
+ .concept-cover .cover-number { right: .8rem; bottom: .5rem; font-size: 1.2rem; }
+ .concept-cover__open { top: .7rem; right: .7rem; width: 1.3rem; height: 1.3rem; font-size: .65rem; }
+ .track-card__heading { gap: .85rem; }
+ .track-cover { flex-basis: 3.5rem; height: 3.5rem; }
+ .track-card h3 { font-size: 1.5rem; }
+}
+/* Genre leads the musical identity; tempo and key sit alongside the player. */
+.track-card__genre { display: inline-block; margin: .45rem 0 0; padding: .2rem .55rem; border: 1px solid #9cc6d24d; border-radius: 3px; background: #bedbe315; color: #d4eef3; font-size: .7rem; font-weight: 650; letter-spacing: .02em; line-height: 1.5; }
+.track-card:nth-child(2) .track-card__genre { color: #f4d5ed; background: #dfb6dd15; border-color: #d9afd34d; }
+.track-card__credit { margin-top: .45rem; margin-bottom: .7rem; }
+.track-card__details { display: flex; flex-wrap: wrap; gap: .8rem 1.5rem; margin: .7rem 0 1.3rem; padding-block: .85rem; border-block: 1px solid #b3ced526; }
+.track-card__details > div { display: flex; align-items: baseline; flex-wrap: wrap; gap: .45rem; }
+.track-card__details dt { color: #9bbbc8; font-size: .58rem; text-transform: uppercase; letter-spacing: .09em; }
+.track-card__details dd { margin: 0; color: #e2ebee; font-size: .77rem; font-variant-numeric: tabular-nums; }
+.track-card__details dd > span { color: #b5cdd7; font-size: .61rem; }

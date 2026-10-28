@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#d8edfa">
-    <meta name="description" content="Rain Piao’s ACM AI Poker Decision Model project at UCLA.">
-    <title>ACM AI Poker Decision Model — Rain Piao</title>
+    <meta name="description" content="Rain Piao is working with an ACM AI team on a model that predicts poker decisions from game state and earlier actions.">
+    <title>Learning how a poker player decides — Rain Piao</title>
     <script>
       try {
         document.documentElement.dataset.mode = localStorage.getItem("rainpiao-mode") === "accessible" ? "accessible" : "animated";
@@ -13,48 +13,26 @@
         document.documentElement.dataset.mode = "animated";
       }
     </script>
-    <link rel="stylesheet" href="../assets/styles/main.css?v=20261017-3">
-    <link rel="stylesheet" href="../assets/styles/project-pages.css?v=20261017-1">
+    <link rel="stylesheet" href="../assets/styles/main.css?v=20261023-2">
+    <link rel="stylesheet" href="../assets/styles/project-pages.css?v=20261023-1">
     <script src="../assets/scripts/project-detail.js?v=20261014-1" defer></script>
   </head>
-  <body data-mode="animated">
+  <body class="project-page" data-mode="animated">
     <script>document.body.dataset.mode = document.documentElement.dataset.mode || "animated";</script>
     <img class="sky-background" src="../assets/images/sky-full.png?v=20261013-7" alt="" width="3344" height="1880" decoding="async">
     <header class="project-detail-nav">
       <a class="project-detail-nav__back" href="../index.html#experience">← All experience</a>
-      <a class="project-detail-nav__name" href="../index.html">ℝain ℙiao</a>
+      <a class="project-detail-nav__name" href="../index.html" aria-label="Rain Piao">ℝain ℙiao</a>
       <button class="mode-toggle" type="button" role="switch" aria-checked="false" aria-label="Switch to Reading mode" hidden>
         <span class="mode-toggle__option mode-toggle__option--immersive">Immersive</span>
         <span class="mode-toggle__track" aria-hidden="true"><span class="mode-toggle__thumb"></span></span>
         <span class="mode-toggle__option mode-toggle__option--reading">Reading</span>
       </button>
     </header>
-    <main class="project-detail content-width">
-      <article>
-        <div class="project-detail__hero">
-          <div>
-            <p class="project-detail__eyebrow">ACM AI · Poker Decision Model · Fall 2026–present</p>
-            <h1>Modeling poker decisions</h1>
-            <p class="project-detail__summary">Exploring how the current game state and an opponent’s earlier behavior can help a model estimate likely actions.</p>
-          </div>
-          <span class="project-detail__mark project-detail__mark--acm" aria-hidden="true">acm<span>.</span>ai</span>
-        </div>
-        <section class="project-detail__section" aria-labelledby="snapshot-title">
-          <h2 id="snapshot-title">Project snapshot</h2>
-          <dl class="project-detail__facts">
-            <div><dt>Organization</dt><dd>ACM AI at UCLA</dd></div>
-            <div><dt>Status</dt><dd>In progress</dd></div>
-            <div><dt>Model output</dt><dd>Fold · Call · Raise probabilities</dd></div>
-          </dl>
-        </section>
-        <section class="project-detail__section" aria-labelledby="question-title">
-          <h2 id="question-title">The decision problem</h2>
-          <p>Poker decisions depend on both what is happening now and what has happened before. The project explores how to represent the current game state alongside behavior observed across earlier hands, then estimate the probability of actions such as folding, calling, or raising.</p>
-          <p>This is a model of decision-making under uncertainty: the context informs a distribution over possible actions rather than assuming every situation has one obvious answer.</p>
-          <a class="text-link" href="https://ai.uclaacm.com/" target="_blank" rel="noopener noreferrer">ACM AI at UCLA <span aria-hidden="true">↗</span></a>
-        </section>
-      </article>
-      <a class="project-detail__back-bottom" href="../index.html#experience">← Back to Experience</a>
-    </main>
+    <main class="project-detail content-width"><article><div class="project-detail__hero"><div><p class="project-detail__eyebrow">ACM AI at UCLA · Student project · Fall 2026–present</p><h1><span class="immersive-title">Learning how a poker player decides.</span><span class="reading-title">Poker Decision Modeling</span></h1><p class="project-detail__summary">I’m working with an ACM AI team on a model that predicts poker decisions from game state and earlier actions.</p></div><img class="project-detail__mark" src="../assets/images/acm-ai-logo.png" alt="" aria-hidden="true" loading="lazy"></div>
+      <dl class="project-detail__facts"><div><dt>Group</dt><dd>ACM AI at UCLA</dd></div><div><dt>Status</dt><dd>In progress</dd></div><div><dt>Output</dt><dd>Fold, call, raise probabilities</dd></div></dl>
+      <section class="project-detail__section" aria-labelledby="detail-0"><h2 id="detail-0">What we’re building</h2><p>We’re developing a transformer-based model that learns from sequences of game states and actions. The aim is to estimate the probabilities of folding, calling, or raising using the current situation and the behavior observed earlier.</p></section>
+      <section class="project-detail__section" aria-labelledby="detail-1"><h2 id="detail-1">Where it stands</h2><p>The project is in progress. This page describes the model we’re working toward; there are no final evaluation results to report yet.</p></section>
+<p><a class="text-link" href="https://ai.uclaacm.com/" target="_blank" rel="noopener noreferrer">ACM AI at UCLA ↗</a></p>    </article><a class="project-detail__back-bottom" href="../index.html#experience">← Back to Experience</a></main>
   </body>
 </html>

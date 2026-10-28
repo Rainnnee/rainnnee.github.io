@@ -5,19 +5,25 @@
   const scrollCue = document.querySelector(".scroll-cue");
   const masthead = document.querySelector(".masthead");
   const pageContent = document.querySelector(".page-content");
+  const skyInterlude = document.querySelector(".sky-interlude");
   const fullSky = document.querySelector(".sky-background");
   const initialHash = window.location.hash;
   let finishIntro = () => {};
+  const detailStates = new Map();
 
   function updateBlurBoundary() {
     const contentTop = pageContent.getBoundingClientRect().top;
-    const viewportHeight = window.innerHeight;
-    const start = Math.min(viewportHeight, Math.max(0, contentTop - 40));
-    const middle = Math.min(viewportHeight + 160, Math.max(start + 1, contentTop + 80));
-    const end = Math.min(viewportHeight + 320, Math.max(middle + 1, contentTop + 280));
-    root.style.setProperty("--blur-ramp-start", `${start}px`);
-    root.style.setProperty("--blur-ramp-middle", `${middle}px`);
-    root.style.setProperty("--blur-ramp-end", `${end}px`);
+    // Keep the ramp's coordinates continuous as the content crosses the viewport top.
+    root.style.setProperty("--blur-ramp-start", `${contentTop - 96}px`);
+    root.style.setProperty("--blur-ramp-middle", `${contentTop + 60}px`);
+    root.style.setProperty("--blur-ramp-end", `${contentTop + 300}px`);
+    if (skyInterlude) {
+      const { top, bottom } = skyInterlude.getBoundingClientRect();
+      root.style.setProperty("--sky-window-top", `${top - 70}px`);
+      root.style.setProperty("--sky-window-clear-top", `${top + 70}px`);
+      root.style.setProperty("--sky-window-clear-bottom", `${bottom - 70}px`);
+      root.style.setProperty("--sky-window-bottom", `${bottom + 70}px`);
+    }
   }
 
   let boundaryFrame = 0;
@@ -60,6 +66,15 @@
     toggle.setAttribute("aria-checked", String(accessible));
     toggle.setAttribute("aria-label", `Switch to ${accessible ? "Immersive" : "Reading"} mode`);
     if (accessible) finishIntro();
+    for (const details of document.querySelectorAll(".skill-group, .coursework")) {
+      if (accessible) {
+        if (!detailStates.has(details)) detailStates.set(details, details.open);
+        details.open = true;
+      } else if (detailStates.has(details)) {
+        details.open = detailStates.get(details);
+        detailStates.delete(details);
+      }
+    }
     if (persist) {
       try {
         localStorage.setItem("rainpiao-mode", accessible ? "accessible" : "animated");
@@ -76,6 +91,7 @@
     const boundaryObserver = new ResizeObserver(scheduleBlurBoundaryUpdate);
     boundaryObserver.observe(masthead);
     boundaryObserver.observe(pageContent);
+    if (skyInterlude) boundaryObserver.observe(skyInterlude);
   }
   window.addEventListener("scroll", scheduleBlurBoundaryUpdate, { passive: true });
   window.addEventListener("resize", scheduleBlurBoundaryUpdate, { passive: true });
@@ -109,40 +125,50 @@
     const count = experience.querySelector("[data-experience-count]");
     const previous = experience.querySelector("[data-experience-previous]");
     const next = experience.querySelector("[data-experience-next]");
+    const indexButtons = [...experience.querySelectorAll("[data-experience-go]")];
     let activeCard = 0;
     let scrollFrame = 0;
 
     function updateExperienceControls() {
       scrollFrame = 0;
-      const trackLeft = experienceTrack.getBoundingClientRect().left;
-      activeCard = cards.reduce((nearest, card, index) => {
-        const distance = Math.abs(card.getBoundingClientRect().left - trackLeft);
-        const nearestDistance = Math.abs(cards[nearest].getBoundingClientRect().left - trackLeft);
-        return distance < nearestDistance ? index : nearest;
-      }, 0);
-      count.textContent = `${String(activeCard + 1).padStart(2, "0")} / ${String(cards.length).padStart(2, "0")}`;
-      previous.disabled = activeCard === 0;
-      next.disabled = activeCard === cards.length - 1;
+      const trackRect = experienceTrack.getBoundingClientRect();
+      const visible = cards.map((card, index) => ({ rect: card.getBoundingClientRect(), index }))
+        .filter(({ rect }) => rect.left >= trackRect.left - 4 && rect.right <= trackRect.right + 4);
+      const nearest = cards.reduce((best, card, index) =>
+        Math.abs(card.getBoundingClientRect().left - trackRect.left) < Math.abs(cards[best].getBoundingClientRect().left - trackRect.left) ? index : best, 0);
+      activeCard = visible[0]?.index ?? nearest;
+      const last = visible.at(-1)?.index ?? activeCard;
+      const from = String(activeCard + 1).padStart(2, "0");
+      const to = String(last + 1).padStart(2, "0");
+      count.textContent = `${from}${last > activeCard ? `–${to}` : ""} / ${String(cards.length).padStart(2, "0")}`;
+      previous.disabled = experienceTrack.scrollLeft <= 2;
+      next.disabled = experienceTrack.scrollLeft >= experienceTrack.scrollWidth - experienceTrack.clientWidth - 3;
+      for (const [index, button] of indexButtons.entries()) {
+        if (index === activeCard) button.setAttribute("aria-current", "true");
+        else button.removeAttribute("aria-current");
+      }
     }
-
     function scheduleExperienceControlsUpdate() {
-      if (scrollFrame) return;
-      scrollFrame = window.requestAnimationFrame(updateExperienceControls);
+      if (!scrollFrame) scrollFrame = requestAnimationFrame(updateExperienceControls);
     }
-
     function showExperienceCard(index) {
       const target = Math.max(0, Math.min(cards.length - 1, index));
-      cards[target].scrollIntoView({
-        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
-        block: "nearest",
-        inline: "start",
-      });
+      const left = cards[target].getBoundingClientRect().left - experienceTrack.getBoundingClientRect().left + experienceTrack.scrollLeft;
+      experienceTrack.scrollTo({ left, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
     }
-
     previous.addEventListener("click", () => showExperienceCard(activeCard - 1));
     next.addEventListener("click", () => showExperienceCard(activeCard + 1));
+    for (const button of indexButtons) button.addEventListener("click", () => showExperienceCard(Number(button.dataset.experienceGo)));
     experienceTrack.addEventListener("scroll", scheduleExperienceControlsUpdate, { passive: true });
+    experienceTrack.addEventListener("keydown", (event) => {
+      if (event.target !== experienceTrack) return;
+      const target = { ArrowLeft: activeCard - 1, ArrowRight: activeCard + 1, Home: 0, End: cards.length - 1 }[event.key];
+      if (target === undefined) return;
+      event.preventDefault();
+      showExperienceCard(target);
+    });
     window.addEventListener("resize", scheduleExperienceControlsUpdate, { passive: true });
+    if ("ResizeObserver" in window) new ResizeObserver(scheduleExperienceControlsUpdate).observe(experienceTrack);
     experience.classList.add("experience--ready");
     updateExperienceControls();
   }
@@ -260,13 +286,16 @@
     document.documentElement.style.scrollBehavior = previousBehavior;
 
     let finished = false;
-    finishIntro = () => {
+    finishIntro = (restoreSection = true) => {
       if (finished) return;
       finished = true;
       delete root.dataset.intro;
       removeListeners();
-      if (initialHash) {
-        const target = document.querySelector(initialHash);
+      if (restoreSection && initialHash) {
+        let targetId;
+        try { targetId = decodeURIComponent(initialHash.slice(1)); }
+        catch { targetId = initialHash.slice(1); }
+        const target = document.getElementById(targetId);
         if (target) {
           const previousBehavior = document.documentElement.style.scrollBehavior;
           document.documentElement.style.scrollBehavior = "auto";
@@ -277,26 +306,25 @@
       if (window.matchMedia("(hover: none)").matches) body.classList.add("show-scroll-cue");
     };
     const onKeyDown = (event) => {
-      if (event.key === "Tab" || event.key === "Escape") finishIntro();
+      if (["Tab", "Escape", "ArrowDown", "ArrowUp", "PageDown", "PageUp", "Home", "End", " "].includes(event.key)) finishIntro(false);
     };
-    const onScroll = () => finishIntro();
-    const onInteract = () => finishIntro();
+    const onInteract = () => finishIntro(false);
     const removeListeners = () => {
       window.removeEventListener("keydown", onKeyDown);
-      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("wheel", onInteract);
       window.removeEventListener("pointerdown", onInteract);
       window.removeEventListener("touchstart", onInteract);
     };
 
     window.addEventListener("keydown", onKeyDown);
-    window.addEventListener("scroll", onScroll, { passive: true, once: true });
+    window.addEventListener("wheel", onInteract, { passive: true, once: true });
     window.addEventListener("pointerdown", onInteract, { once: true });
     window.addEventListener("touchstart", onInteract, { once: true, passive: true });
 
     window.setTimeout(() => {
       if (root.dataset.intro === "name") root.dataset.intro = "lift";
     }, 2000);
-    window.setTimeout(finishIntro, 3800);
+    window.setTimeout(finishIntro, 3400);
   }
 
   scrollCue.addEventListener("click", () => {
@@ -309,6 +337,14 @@
   window.addEventListener("scroll", () => {
     if (window.scrollY > 24) body.classList.remove("show-scroll-cue");
   }, { passive: true });
+
+  // A one-use, short-lived hint distinguishes an observed keyboard reload.
+  // Browsers that reserve the shortcut simply fall back to the normal intro.
+  window.addEventListener("keydown", (event) => {
+    if (!(event.metaKey || event.ctrlKey) || event.altKey || event.key.toLowerCase() !== "r") return;
+    try { sessionStorage.setItem("rainpiao-keyboard-reload", String(Date.now())); }
+    catch { /* Reload remains usable without storage. */ }
+  }, { capture: true });
 
   playIntro();
 })();

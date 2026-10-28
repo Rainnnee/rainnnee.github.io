@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#d8edfa">
-    <meta name="description" content="The personal website of Rain Piao, exploring applied mathematics, statistics, data science, computer science, and machine learning.">
+    <meta name="description" content="Rain Piao — UCLA Statistics &amp; Data Science and Applied Mathematics. Research, projects, original music, and life outside class.">
     <title>Rain Piao</title>
     <script>
       try {
@@ -16,14 +16,24 @@
         history.scrollRestoration = document.documentElement.dataset.mode === "accessible" ? "auto" : "manual";
       }
       document.documentElement.dataset.imageLoading = "true";
-      if (document.documentElement.dataset.mode !== "accessible") {
+      let keyboardReload = false;
+      try {
+        const shortcutAt = Number(sessionStorage.getItem("rainpiao-keyboard-reload"));
+        sessionStorage.removeItem("rainpiao-keyboard-reload");
+        const navigation = performance.getEntriesByType("navigation")[0];
+        const age = Date.now() - shortcutAt;
+        keyboardReload = navigation?.type === "reload" && shortcutAt > 0 && age >= 0 && age < 5000;
+      } catch {
+        // If storage is unavailable, the normal opening animation still plays.
+      }
+      if (document.documentElement.dataset.mode !== "accessible" && !keyboardReload) {
         document.documentElement.dataset.intro = "name";
       }
     </script>
     <link rel="preload" as="image" href="./assets/images/sky-preview.jpg?v=20261013-7" fetchpriority="high">
-    <link rel="preload" as="font" href="./assets/fonts/caveat-latin-500.woff2" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="./assets/styles/main.css?v=20261022-signature">
-    <script src="./assets/scripts/main.js?v=20261017-2" defer></script>
+    <link rel="stylesheet" href="./assets/styles/main.css?v=20261024-4">
+    <link rel="stylesheet" href="./assets/styles/concepts.css?v=20261024-3">
+    <script src="./assets/scripts/main.js?v=20261024-4" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to content</a>
@@ -45,7 +55,7 @@
         <a href="#education">Education</a>
         <a href="#experience">Experience</a>
         <a href="#skills">Skills</a>
-        <a href="#interests">What I’m into</a>
+        <a href="#interests">Personal</a>
         <a href="#music">Music</a>
       </div>
       <button class="mode-toggle" type="button" role="switch" aria-checked="false" aria-label="Switch to Reading mode" hidden>
@@ -62,150 +72,94 @@
     <main id="main-content" class="page-content">
       <section class="intro-copy content-width" id="about" aria-labelledby="about-title">
         <div class="intro-copy__heading">
-          <p class="eyebrow">A personal portfolio</p>
+          <p class="eyebrow">Rain Piao · Los Angeles</p>
           <h2 class="signature-name signature-name--image" id="about-title" aria-label="Rain Piao">
-            <svg viewBox="145 125 710 350" aria-hidden="true" focusable="false"><defs><filter id="signature-ink" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="0 0 0 0 0.07 0 0 0 0 0.12 0 0 0 0 0.18 -0.3333 -0.3333 -0.3333 0 1"/></filter></defs><image href="./assets/images/rain-piao-signature.jpg" width="1035" height="645" filter="url(#signature-ink)"/></svg>
+            <svg viewBox="145 125 710 350" aria-hidden="true" focusable="false"><defs><filter id="signature-ink" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="0 0 0 0 0.098 0 0 0 0 0.239 0 0 0 0 0.357 -0.3333 -0.3333 -0.3333 0 1"/></filter></defs><image href="./assets/images/rain-piao-signature.jpg" width="1035" height="645" filter="url(#signature-ink)"/></svg>
             <span class="signature-name__plain" aria-hidden="true">Rain Piao</span>
           </h2>
+          <p class="intro-copy__lead">I’m a UCLA sophomore studying <em>Statistics &amp; Data Science</em> and <em>Applied Mathematics.</em></p>
+          <p>Right now, I’m working on computer vision research with BruinML and a poker decision model with ACM AI.</p>
+          <p>Outside class, I make music, act with CFan, and beatbox with SouLA.</p>
+          <div class="intro-copy__links"><a class="text-link" href="#experience">See my work <span aria-hidden="true">↗</span></a><a class="text-link" href="https://www.linkedin.com/in/its-rain-piao-yay/">LinkedIn <span aria-hidden="true">↗</span></a></div>
         </div>
-        <div class="intro-copy__body glass-panel">
-          <p class="intro-copy__lead">My interests span applied mathematics, statistics, data science, computer science, and machine learning.</p>
-          <p>This is a home for the work, ideas, and questions I collect across those fields. I’ll add more as I’m ready to share it.</p>
-          <a class="text-link" href="#interests">Explore my interests <span aria-hidden="true">↓</span></a>
-          <figure class="intro-copy__portrait">
+        <div class="intro-copy__photo"><figure class="intro-copy__portrait">
             <img class="intro-copy__portrait-image intro-copy__portrait-image--immersive" src="./assets/images/rain-piao-pier-selfie.jpg?v=20261014-3" alt="Rain Piao at the beach, with the pier in the background" width="1200" height="900" loading="lazy" decoding="async" fetchpriority="low">
             <img class="intro-copy__portrait-image intro-copy__portrait-image--reading" src="./assets/images/rain-piao-sunset-portrait.jpg?v=20261014-3" alt="Rain Piao outdoors at golden hour" width="900" height="1200" loading="lazy" decoding="async" fetchpriority="low">
-          </figure>
-        </div>
+          </figure></div>
       </section>
 
       <section class="education content-width" id="education" aria-labelledby="education-title">
-        <div class="section-heading">
-          <p class="eyebrow">Learning in Los Angeles</p>
-          <h2 id="education-title">Education</h2>
+        <div class="section-heading"><p class="eyebrow">01 / Education</p><h2 id="education-title"><span class="immersive-title">Where I’m<br> learning.</span><span class="reading-title">Education</span></h2></div>
+        <div class="education-record">
+          <article class="education-card">
+            <div class="education-card__details">
+              <p class="education-card__meta">2025–2029 <span>·</span> Expected June 2029</p>
+              <h3>University of California, <br>Los Angeles</h3>
+              <div class="education-degrees"><p><span>B.S.</span>Statistics and Data Science</p><p><span>B.S.</span>Applied Mathematics</p></div>
+              <p class="education-card__note">College Honors Program · Dean’s Honors List</p>
+              <details class="coursework"><summary>Selected coursework <span aria-hidden="true">+</span></summary><p>Regression Analysis, Experimental Design, Statistical Programming with R, Linear Algebra, Multivariable Calculus, Differential Equations, and C++.</p></details>
+            </div>
+            <svg class="education-card__logo education-card__logo--script" viewBox="350 185 840 430" aria-hidden="true" focusable="false"><defs><filter id="ucla-paper" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 -1 -1 -1 0 3"/></filter></defs><image href="./assets/images/ucla-script-wordmark.png" width="1536" height="800" filter="url(#ucla-paper)"/></svg>
+          </article>
+          <p class="education-earlier"><span>Before UCLA</span><strong>The Pennington School</strong><span>2022–2025</span></p>
         </div>
-        <article class="education-card glass-panel">
-          <div class="education-card__details">
-            <p class="education-card__meta">Expected June 2029 <span>·</span> Los Angeles, California</p>
-            <h3>University of California, Los Angeles</h3>
-            <p>B.S. in Statistics and Data Science · B.S. in Applied Mathematics</p>
-            <p class="education-card__note">UCLA College Honors Program · Dean’s Honors List</p>
-            <p class="education-card__coursework"><strong>Selected coursework</strong> Regression Analysis, Experimental Design, Statistical Programming with R, Linear Algebra, Multivariable Calculus, Differential Equations, and C++.</p>
-          </div>
-          <img class="education-card__logo" src="./assets/images/ucla-boxed-wordmark.png?v=20261014-1" alt="" aria-hidden="true" width="443" height="206" loading="lazy" decoding="async">
-        </article>
       </section>
 
-      <section class="experience content-width" id="experience" aria-labelledby="experience-title">
-        <div class="section-heading section-heading--projects">
-          <div>
-            <p class="eyebrow">Research, projects, and competitions</p>
-            <h2 id="experience-title">Experience</h2>
-          </div>
-          <div class="experience-controls" aria-label="Experience gallery controls">
-            <span class="section-heading__index" data-experience-count aria-live="polite">01 / 05</span>
-            <button class="experience-controls__button" type="button" data-experience-previous aria-label="Show previous experience" disabled><span aria-hidden="true">←</span></button>
-            <button class="experience-controls__button" type="button" data-experience-next aria-label="Show next experience"><span aria-hidden="true">→</span></button>
-          </div>
-        </div>
+      <section class="experience content-width" id="experience" aria-labelledby="experience-title"><span class="anchor-alias" id="projects" aria-hidden="true"></span><span class="anchor-alias" id="research" aria-hidden="true"></span>
+        <div class="section-heading section-heading--projects"><div><p class="eyebrow">02 / Experience</p><h2 id="experience-title"><span class="immersive-title">Selected work.</span><span class="reading-title">Experience</span></h2><p class="section-note">Research, team projects, and competitions.</p></div><div class="experience-controls" aria-label="Experience gallery controls"><span data-experience-count aria-live="polite">01–02 / 05</span><button class="experience-controls__button" type="button" data-experience-previous aria-label="Show previous experience" disabled>←</button><button class="experience-controls__button" type="button" data-experience-next aria-label="Show next experience">→</button></div></div>
         <div class="experience-track" data-experience-track tabindex="0" aria-label="Experience cards; scroll horizontally to browse">
-          <article class="project-card experience-card experience-card--research project-card--sky" data-experience-card>
-            <div class="project-card__identity" aria-hidden="true"><img class="project-mark project-mark--bruinml" src="./assets/images/bruinml-logo.jpg" alt="" width="200" height="200" loading="lazy" decoding="async"></div>
-            <div class="project-card__number">01</div>
-            <p class="project-card__meta">BruinML <span>·</span> Research <span>·</span> 2026–present</p>
-            <h3>Finding small unfamiliar regions in images</h3>
-            <p class="research-card__status">Paper submitted to ALT · awaiting decision</p>
-            <p>I work with a five-person team on training-free methods for detecting small out-of-distribution regions using frozen CLIP patch features. I extended a Python Monte Carlo study across 225 experimental settings and evaluated a spatial-scan method that improved simulated detection power under Gaussian-mixture noise.</p>
-            <div class="project-card__footer">
-              <div class="tag-row" aria-label="Research topics"><span>Machine learning</span><span>Computer vision</span><span>Statistical detection</span><span>Python</span></div>
-            </div>
+          <article class="project-card experience-card experience-card--research" data-experience-card>
+            <a class="concept-preview" href="./projects/bruinml.html" aria-label="Open the BruinML research project">
+              <div class="experience-cover concept-cover" aria-hidden="true"><img class="concept-cover__drawing" src="./assets/images/concepts/bruinml.svg?v=20261024-2" alt="" width="760" height="420" loading="lazy" decoding="async"><img class="project-mark project-mark--bruinml" src="./assets/images/bruinml-logo.jpg" alt="" loading="lazy" decoding="async"><span class="cover-subject">Computer vision</span><span class="cover-number">01</span><span class="concept-cover__open">↗</span></div>
+            </a>
+            <div class="experience-card__body"><p class="project-card__meta">BruinML<span>Research · 2026–present</span></p><h3><span class="immersive-title">Finding unfamiliar regions in images.</span><span class="reading-title">CLIP-Based Out-of-Distribution Detection</span></h3><p class="research-card__status">Submitted to ALT · awaiting decision</p><p class="project-card__description">I work with a five-person team on detecting small, unfamiliar regions in images using frozen CLIP patch features. My part: extending a Monte Carlo study to 225 settings and testing how a spatial scan changes detection power.</p><div class="project-card__footer"><div class="tag-row"><span>Python</span><span>Computer vision</span><span>Statistical detection</span></div><a class="project-card__action" href="./projects/bruinml.html">Read about the project <span aria-hidden="true">↗</span></a></div></div>
           </article>
-          <article class="project-card experience-card project-card--lilac">
-            <div class="project-card__identity" aria-hidden="true"><img class="project-mark project-mark--acm-ai" src="./assets/images/acm-ai-logo.png" alt="" width="400" height="400" loading="lazy" decoding="async"></div>
-            <div class="project-card__number">02</div>
-            <p class="project-card__meta">ACM AI <span>·</span> Student project <span>·</span> Fall 2026–present</p>
-            <h3>Modeling poker decisions</h3>
-            <p>Working with an ACM AI team to explore how the current game state and an opponent’s earlier behavior can inform the estimated probabilities of folding, calling, or raising.</p>
-            <div class="project-card__footer">
-              <div class="tag-row"><span>Machine learning</span><span>Decision modeling</span><span>Probability</span><span>Opponent behavior</span></div>
-              <a class="project-card__action" href="./projects/acm-ai-poker.html">Open project <span aria-hidden="true">↗</span></a>
-            </div>
+          <article class="project-card experience-card experience-card--poker" data-experience-card>
+            <a class="concept-preview" href="./projects/acm-ai-poker.html" aria-label="Open the ACM AI poker project">
+              <div class="experience-cover concept-cover" aria-hidden="true"><img class="concept-cover__drawing" src="./assets/images/concepts/poker.svg?v=20261024-2" alt="" width="760" height="420" loading="lazy" decoding="async"><img class="project-mark project-mark--acm-ai" src="./assets/images/acm-ai-logo.png" alt="" loading="lazy" decoding="async"><span class="cover-subject">Decision modeling</span><span class="cover-number">02</span><span class="concept-cover__open">↗</span></div>
+            </a>
+            <div class="experience-card__body"><p class="project-card__meta">ACM AI at UCLA<span>Student project · Fall 2026–present</span></p><h3><span class="immersive-title">Learning how a poker player decides.</span><span class="reading-title">Poker Decision Modeling</span></h3><p class="project-card__description">With an ACM AI team, I’m developing a model that uses game state and earlier actions to estimate the chances of a player folding, calling, or raising. The project is in progress.</p><div class="project-card__footer"><div class="tag-row"><span>Machine learning</span><span>Sequential modeling</span><span>Probability</span></div><a class="project-card__action" href="./projects/acm-ai-poker.html">Read about the project <span aria-hidden="true">↗</span></a></div></div>
           </article>
-          <article class="project-card experience-card project-card--rose">
-            <div class="project-card__identity" aria-hidden="true"><img class="project-mark project-mark--datafest" src="./assets/images/datafest-logo.png" alt="" width="100" height="100"></div>
-            <div class="project-card__number">03</div>
-            <p class="project-card__meta">ASA DataFest at UCLA <span>·</span> Team competition <span>·</span> May 2026</p>
-            <h3>Making sense of healthcare data</h3>
-            <p>Coordinated a five-person team in a 48-hour analysis of de-identified patient data. We used R, visualization, and rank correlation to examine stress, age, encounter volume, and social needs, then presented recommendations for cancer care.</p>
-            <div class="project-card__footer">
-              <div class="tag-row"><span>R</span><span>Data analysis</span><span>Data visualization</span><span>Rank correlation</span><span>Team coordination</span></div>
-              <a class="project-card__action" href="./projects/datafest.html">Open project <span aria-hidden="true">↗</span></a>
-            </div>
+          <article class="project-card experience-card experience-card--datafest" data-experience-card>
+            <a class="concept-preview" href="./projects/datafest.html" aria-label="Open the DataFest analysis project">
+              <div class="experience-cover concept-cover" aria-hidden="true"><img class="concept-cover__drawing" src="./assets/images/concepts/datafest.svg?v=20261024-2" alt="" width="760" height="420" loading="lazy" decoding="async"><img class="project-mark project-mark--datafest" src="./assets/images/datafest-logo.png" alt="" loading="lazy" decoding="async"><span class="cover-subject">Healthcare data</span><span class="cover-number">03</span><span class="concept-cover__open">↗</span></div>
+            </a>
+            <div class="experience-card__body"><p class="project-card__meta">ASA DataFest at UCLA<span>Team competition · May 2026</span></p><h3><span class="immersive-title">A dataset, five people, 48 hours.</span><span class="reading-title">Healthcare Data Analysis</span></h3><p class="project-card__description">I coordinated a five-person team analyzing de-identified patient data. We used R, visualization, and Spearman correlation to study stress and social needs, then turned four analyses into a five-minute presentation on cancer care.</p><div class="project-card__footer"><div class="tag-row"><span>R</span><span>Data analysis</span><span>Team coordination</span></div><a class="project-card__action" href="./projects/datafest.html">Read about the project <span aria-hidden="true">↗</span></a></div></div>
           </article>
-          <article class="project-card experience-card project-card--blue">
-            <div class="project-card__identity" aria-hidden="true"><img class="project-mark project-mark--prosperity" src="./assets/images/prosperity4-official.png?v=20261014-3" alt="" width="100" height="100"></div>
-            <div class="project-card__number">04</div>
-            <p class="project-card__meta">IMC Prosperity 4 <span>·</span> Trading competition <span>·</span> Spring 2026</p>
-            <h3>Building a trading strategy</h3>
-            <p>Developed and backtested Python strategies with adaptive mean reversion, position limits, and risk controls. Our team qualified in the top 16% of 18,803 teams and competed through Round 3.</p>
-            <div class="project-card__footer">
-              <div class="tag-row"><span>Python</span><span>Backtesting</span><span>Algorithm design</span><span>Mean reversion</span><span>Risk controls</span></div>
-              <a class="project-card__action" href="./projects/prosperity4.html">Open project <span aria-hidden="true">↗</span></a>
-            </div>
+          <article class="project-card experience-card experience-card--trading" data-experience-card>
+            <a class="concept-preview" href="./projects/prosperity4.html" aria-label="Open the Prosperity trading project">
+              <div class="experience-cover concept-cover" aria-hidden="true"><img class="concept-cover__drawing" src="./assets/images/concepts/trading.svg?v=20261024-2" alt="" width="760" height="420" loading="lazy" decoding="async"><img class="project-mark project-mark--prosperity" src="./assets/images/prosperity4-official.png" alt="" loading="lazy" decoding="async"><span class="cover-subject">Algorithmic trading</span><span class="cover-number">04</span><span class="concept-cover__open">↗</span></div>
+            </a>
+            <div class="experience-card__body"><p class="project-card__meta">IMC Prosperity 4<span>Trading competition · Spring 2026</span></p><h3><span class="immersive-title">Building a trading strategy.</span><span class="reading-title">Algorithmic Trading Strategies</span></h3><p class="project-card__description">I developed and backtested Python strategies with adaptive mean reversion, position limits, and end-of-round controls. Our team reached Round 3 and placed in the top 16% of 18,803 teams.</p><div class="project-card__footer"><div class="tag-row"><span>Python</span><span>Backtesting</span><span>Risk controls</span></div><a class="project-card__action" href="./projects/prosperity4.html">Read about the project <span aria-hidden="true">↗</span></a></div></div>
           </article>
-          <article class="project-card experience-card project-card--lilac">
-            <div class="project-card__identity" aria-hidden="true"><img class="project-mark project-mark--seyond" src="./assets/images/seyond-logo.png?v=20261014-1" alt="" width="250" height="173"></div>
-            <div class="project-card__number">05</div>
-            <p class="project-card__meta">Independent project <span>·</span> 2025</p>
-            <h3>LiDAR traffic monitoring</h3>
-            <p>Implemented a 3D breadth-first-search pipeline in C++ to group LiDAR points into vehicles, create bounding boxes, track them frame by frame, and estimate speed for traffic-flow analysis.</p>
-            <div class="project-card__footer">
-              <div class="tag-row"><span>C++</span><span>Linux</span><span>3D breadth-first search</span><span>Object tracking</span><span>Speed estimation</span></div>
-              <a class="project-card__action" href="./projects/lidar-traffic.html">Open project <span aria-hidden="true">↗</span></a>
-            </div>
+          <article class="project-card experience-card experience-card--lidar" data-experience-card>
+            <a class="concept-preview" href="./projects/lidar-traffic.html" aria-label="Open the LiDAR traffic project">
+              <div class="experience-cover concept-cover" aria-hidden="true"><img class="concept-cover__drawing" src="./assets/images/concepts/lidar.svg?v=20261024-2" alt="" width="760" height="420" loading="lazy" decoding="async"><img class="project-mark project-mark--seyond" src="./assets/images/seyond-logo.png" alt="" loading="lazy" decoding="async"><span class="cover-subject">LiDAR &amp; tracking</span><span class="cover-number">05</span><span class="concept-cover__open">↗</span></div>
+            </a>
+            <div class="experience-card__body"><p class="project-card__meta">Independent project<span>2025 · The Pennington School</span></p><h3><span class="immersive-title">From point clouds to passing cars.</span><span class="reading-title">LiDAR Traffic-Monitoring System</span></h3><p class="project-card__description">I built a C++ pipeline to group LiDAR points into vehicles, draw bounding boxes, and track them frame by frame. Their displacement over time gives an estimate of traffic speed.</p><div class="project-card__footer"><div class="tag-row"><span>C++</span><span>3D breadth-first search</span><span>Object tracking</span></div><a class="project-card__action" href="./projects/lidar-traffic.html">Read about the project <span aria-hidden="true">↗</span></a></div></div>
           </article>
         </div>
+        <div class="experience-index" aria-label="Jump to a project"><button type="button" data-experience-go="0" aria-label="Show BruinML project"><span>01</span><span>BruinML</span></button><button type="button" data-experience-go="1" aria-label="Show ACM AI at UCLA project"><span>02</span><span>ACM AI at UCLA</span></button><button type="button" data-experience-go="2" aria-label="Show ASA DataFest at UCLA project"><span>03</span><span>ASA DataFest at UCLA</span></button><button type="button" data-experience-go="3" aria-label="Show IMC Prosperity 4 project"><span>04</span><span>IMC Prosperity 4</span></button><button type="button" data-experience-go="4" aria-label="Show LiDAR traffic project"><span>05</span><span>Independent project</span></button></div>
       </section>
 
-      <section class="skills content-width" id="skills" aria-labelledby="skills-title">
-        <div class="section-heading">
-          <p class="eyebrow">Methods, tools, and ways of thinking</p>
-          <h2 id="skills-title">Skills</h2>
-        </div>
-        <div class="skills-list">
-          <details class="skill-group">
-            <summary><span>Mathematics &amp; statistics</span><span class="skill-group__count" aria-hidden="true">07</span></summary>
-            <div class="tag-row"><span>Applied mathematics</span><span>Regression analysis</span><span>Experimental design</span><span>Rank correlation</span><span>Linear algebra</span><span>Multivariable calculus</span><span>Differential equations</span></div>
-          </details>
-          <details class="skill-group">
-            <summary><span>Computing &amp; data</span><span class="skill-group__count" aria-hidden="true">05</span></summary>
-            <div class="tag-row"><span>Python</span><span>R</span><span>C++</span><span>Linux</span><span>Data visualization</span></div>
-          </details>
-          <details class="skill-group">
-            <summary><span>Machine learning &amp; research</span><span class="skill-group__count" aria-hidden="true">04</span></summary>
-            <div class="tag-row"><span>Computer vision</span><span>CLIP patch features</span><span>Monte Carlo simulation</span><span>Out-of-distribution detection</span></div>
-          </details>
-          <details class="skill-group">
-            <summary><span>Algorithms &amp; markets</span><span class="skill-group__count" aria-hidden="true">04</span></summary>
-            <div class="tag-row"><span>Algorithm design</span><span>Backtesting</span><span>Mean reversion</span><span>Risk controls</span></div>
-          </details>
-        </div>
-      </section>
+      <section class="skills content-width" id="skills" aria-labelledby="skills-title"><div class="section-heading"><p class="eyebrow">03 / Toolkit</p><h2 id="skills-title"><span class="immersive-title">What I work with.</span><span class="reading-title">Skills</span></h2><p class="section-note">The math, methods, and tools behind the projects.</p></div><div class="skills-list"><details class="skill-group"><summary>Mathematics & statistics<span aria-hidden="true">+</span></summary><div class="tag-row"><span>Applied mathematics</span><span>Regression analysis</span><span>Experimental design</span><span>Rank correlation</span><span>Linear algebra</span><span>Multivariable calculus</span><span>Differential equations</span></div></details><details class="skill-group"><summary>Computing & data<span aria-hidden="true">+</span></summary><div class="tag-row"><span>Python</span><span>R</span><span>C++</span><span>Linux</span><span>Data visualization</span></div></details><details class="skill-group"><summary>Machine learning & research<span aria-hidden="true">+</span></summary><div class="tag-row"><span>Computer vision</span><span>CLIP patch features</span><span>Monte Carlo simulation</span><span>Out-of-distribution detection</span></div></details><details class="skill-group"><summary>Algorithms & markets<span aria-hidden="true">+</span></summary><div class="tag-row"><span>Algorithm design</span><span>Backtesting</span><span>Mean reversion</span><span>Risk controls</span></div></details></div></section>
 
       <section class="music content-width" id="music" aria-labelledby="music-title">
         <div class="section-heading">
-          <p class="eyebrow">A different kind of practice</p>
-          <h2 id="music-title">Music</h2>
+          <p class="eyebrow">04 / Music</p>
+          <h2 id="music-title">There’s music here, too.</h2><p class="section-note">Two of my earlier tracks.</p><div class="music-grooves" aria-hidden="true"><span></span></div>
         </div>
         <div class="music-grid" aria-label="Selected music tracks">
           <article class="track-card">
-            <div class="track-card__heading">
+            <div class="track-card__heading"><div class="track-cover" aria-hidden="true"><span></span></div>
               <div>
-                <p class="track-card__eyebrow">Music production</p>
+                <p class="track-card__eyebrow">01 / Original track</p>
                 <h3>Breath Away</h3>
+                <p class="track-card__genre">Melodic Dubstep</p>
                 <p class="track-card__credit">Yufei Piao</p>
               </div>
             </div>
+            <dl class="track-card__details"><div><dt>Tempo</dt><dd>73 <span>BPM</span></dd></div><div><dt>Key</dt><dd aria-label="B-flat major or G minor">B♭ major / G minor</dd></div></dl>
             <div class="track-player" data-track-player data-track-name="Breath Away" data-duration="280">
               <button class="track-player__play" type="button" aria-label="Play Breath Away" aria-pressed="false" hidden><span aria-hidden="true"></span></button>
               <input class="track-waveform" data-waveform="breath-away" type="range" min="0" max="280" step="0.1" value="0" aria-label="Seek through Breath Away" aria-valuetext="0:00 of 4:40" hidden>
@@ -218,13 +172,15 @@
             </div>
           </article>
           <article class="track-card">
-            <div class="track-card__heading">
+            <div class="track-card__heading"><div class="track-cover track-cover--camelia" aria-hidden="true"><span></span></div>
               <div>
-                <p class="track-card__eyebrow">Earlier work</p>
+                <p class="track-card__eyebrow">02 / Original track</p>
                 <h3>Camelia Overdose</h3>
-                <p class="track-card__credit">Audio sample</p>
+                <p class="track-card__genre">UK Hardcore</p>
+                <p class="track-card__credit">Yufei Piao</p>
               </div>
             </div>
+            <dl class="track-card__details"><div><dt>Tempo</dt><dd>235 <span>BPM</span></dd></div><div><dt>Key</dt><dd aria-label="C minor or E-flat major">C minor / E♭ major</dd></div></dl>
             <div class="track-player" data-track-player data-track-name="Camelia Overdose" data-duration="159.12">
               <button class="track-player__play" type="button" aria-label="Play Camelia Overdose" aria-pressed="false" hidden><span aria-hidden="true"></span></button>
               <input class="track-waveform" data-waveform="camelia-overdose" type="range" min="0" max="159.12" step="0.1" value="0" aria-label="Seek through Camelia Overdose" aria-valuetext="0:00 of 2:39" hidden>
@@ -241,38 +197,32 @@
 
       <section class="interests content-width" id="interests" aria-labelledby="interests-title">
         <div class="section-heading">
-          <p class="eyebrow">Beyond coursework</p>
-          <h2 id="interests-title">What I’m into</h2>
+          <p class="eyebrow">05 / Outside class</p>
+          <h2 id="interests-title">The rest of the week.</h2>
         </div>
         <div class="interest-board" aria-label="Interests beyond coursework">
-          <article class="interest-card interest-card--music">
-            <span class="interest-card__symbol" aria-hidden="true">♫</span>
-            <h3>Making music</h3>
-            <p>Tracks, production notes, and the sounds currently on repeat.</p>
-            <a href="#music">Listen to selected work <span aria-hidden="true">↗</span></a>
-          </article>
           <article class="interest-card interest-card--running">
             <div class="interest-card__running-copy">
               <span class="interest-card__symbol" aria-hidden="true">
                 <svg viewBox="0 0 48 48" focusable="false"><circle cx="31" cy="8" r="4" fill="currentColor"/><path d="m21 17 8-3 6 7 6 2M21 17l-4 9 8 5 4-8m-4 8-8 8m8-8 8 8m-20-17-5 8m23-10 2 8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.2"/></svg>
               </span>
               <h3>Running</h3>
-              <p class="interest-card__running-route">Jersey City · half-marathon distance</p>
+              <p class="interest-card__running-route">Jersey City Half Marathon</p>
               <dl class="running-stats">
                 <div><dt>Distance</dt><dd>21.25 km</dd></div>
                 <div><dt>Workout time</dt><dd>1:46:48</dd></div>
                 <div><dt>Avg. pace</dt><dd>5′02″ / km</dd></div>
               </dl>
             </div>
-            <figure class="running-preview">
+            <a class="running-preview" href="./assets/images/jersey-city-run-record.jpg" target="_blank" rel="noopener" aria-label="View my full Jersey City run record">
               <img src="./assets/images/jersey-city-run-record.jpg" alt="Apple Fitness summary for an outdoor Jersey City run: 21.25 kilometers, 1 hour 46 minutes 48 seconds of workout time, and an average pace of 5 minutes 2 seconds per kilometer." width="1080" height="2341" loading="lazy" decoding="async">
-              <figcaption>From my Apple Watch</figcaption>
-            </figure>
+              <span class="running-preview__caption">My Apple Watch record ↗</span>
+            </a>
           </article>
           <article class="interest-card interest-card--chess">
             <span class="interest-card__symbol interest-card__symbol--image" aria-hidden="true"><img src="./assets/images/lichess-favicon-128.png" alt="" width="128" height="128" loading="lazy" decoding="async"></span>
             <h3>Chess</h3>
-            <p>Around 1,755 in Lichess blitz right now.</p>
+            <p>Blitz on Lichess. About 1,755 when I last updated this.</p>
             <a href="https://lichess.org/" target="_blank" rel="noopener noreferrer">Lichess <span aria-hidden="true">↗</span></a>
           </article>
           <article class="interest-card interest-card--gaming">
@@ -280,42 +230,32 @@
             <h3>VALORANT</h3>
             <dl class="interest-card__stats">
               <div><dt>Current rank</dt><dd><img class="interest-card__rank-badge" src="./assets/images/valorant-rank-platinum-3.png" alt="" width="256" height="256" loading="lazy" decoding="async"><span>Platinum 3</span></dd></div>
-              <div><dt>Peak rank</dt><dd><img class="interest-card__rank-badge" src="./assets/images/valorant-rank-diamond-1.png" alt="" width="256" height="256" loading="lazy" decoding="async"><span>Diamond 1</span></dd></div>
-            </dl>
+              <div><dt>Peak rank</dt><dd><img class="interest-card__rank-badge" src="./assets/images/valorant-rank-diamond-2.png" alt="" width="256" height="256" loading="lazy" decoding="async"><span>Diamond 2</span></dd></div>
+            </dl><p class="rank-updated">Last updated October 2026</p>
           </article>
           <article class="interest-card interest-card--theatre">
             <span class="interest-card__symbol interest-card__symbol--image" aria-hidden="true"><img src="./assets/images/cfan-theatre-logo.jpg" alt="" width="100" height="100" loading="lazy" decoding="async"></span>
             <h3>CFan Theatre</h3>
             <p class="interest-card__eyebrow">Stage credits · Fall 2025–Fall 2026</p>
             <ul class="interest-card__credits" aria-label="CFan productions and roles">
-              <li><span><span lang="zh">《井底天空》</span><small>Skywatching Down the Well</small></span><span>毕宁</span></li>
+              <li><span><span lang="zh">《井底天空》</span></span><span>毕宁</span></li>
               <li><span><span lang="zh">《安可》</span><small>Winter skit</small></span><span>G</span></li>
               <li><span><span lang="zh">《墙》</span><small>The Wall</small></span><span>No. 7</span></li>
               <li><span><span lang="zh">《生死客》</span><small>Fall play</small></span><span>Kline</span></li>
             </ul>
-            <p class="interest-card__note">For 《墙》, I joined the sound team and composed nine original cues. I also composed music for 《生死客》.</p>
-            <a href="https://www.instagram.com/cfanucla/" target="_blank" rel="noopener noreferrer">CFan on Instagram <span aria-hidden="true">↗</span></a>
+            <p class="interest-card__note">Alongside acting, I worked on sound and wrote nine original cues for 《墙》. I also compose for 《生死客》.</p>
+            <a href="https://www.instagram.com/cfanucla/" target="_blank" rel="noopener noreferrer">CFan Theatre <span aria-hidden="true">↗</span></a>
           </article>
           <article class="interest-card interest-card--soula">
             <span class="interest-card__symbol interest-card__symbol--image" aria-hidden="true"><img src="./assets/images/soula-logo.jpg" alt="" width="100" height="100" loading="lazy" decoding="async"></span>
             <h3>SouLA A Cappella</h3>
-            <p>I beatbox, sing tenor, and work across arranging, video, recording, and mixing, especially for SouLA media projects.</p>
-            <a href="https://www.instagram.com/soulaacappella/" target="_blank" rel="noopener noreferrer">SouLA on Instagram <span aria-hidden="true">↗</span></a>
+            <p>I’m on vocal percussion and tenor. I’ve also arranged for our media projects and worked on recording, mixing, and video.</p>
+            <a href="https://www.instagram.com/soulaacappella/" target="_blank" rel="noopener noreferrer">SouLA <span aria-hidden="true">↗</span></a>
           </article>
         </div>
       </section>
     </main>
 
-    <footer class="site-footer content-width">
-      <div class="site-footer__identity">
-        <a class="site-footer__name" href="#top">Rain Piao</a>
-        <p>Mathematics, data, and computation.</p>
-      </div>
-      <div class="site-footer__links" aria-label="Elsewhere">
-        <a href="https://github.com/Rainnnee">GitHub <span aria-hidden="true">↗</span></a>
-        <a href="https://www.linkedin.com/in/its-rain-piao-yay/">LinkedIn <span aria-hidden="true">↗</span></a>
-      </div>
-      <p class="site-footer__credit">Visual inspiration: <a href="https://www.xeuphoria.com/">Xeuphoria</a></p>
-    </footer>
+    <footer class="sky-interlude sky-outro" aria-labelledby="outro-title"><div class="sky-outro__inner content-width"><p class="eyebrow">Elsewhere</p><h2 id="outro-title">See you around.</h2><div class="sky-outro__links" aria-label="Find Rain Piao elsewhere"><a href="https://github.com/Rainnnee">GitHub <span aria-hidden="true">↗</span></a><a href="https://www.linkedin.com/in/its-rain-piao-yay/">LinkedIn <span aria-hidden="true">↗</span></a></div><p class="sky-outro__name">Rain Piao · Los Angeles</p><p class="site-footer__credit">Visually inspired by <a href="https://x.com/wacca005">wacca_わっか</a>’s cover art for <a href="https://music.apple.com/us/album/piano-sessions-reflections/1700905900"><em>Piano Sessions: Reflections</em></a> (Xeuphoria × OneChilledPanda).</p></div></footer>
   </body>
 </html>

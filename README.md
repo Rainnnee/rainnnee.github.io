@@ -4,7 +4,7 @@ A tribute to my favorite music producer, [**Xeuphoria**](https://www.xeuphoria.c
 
 [Visit my website](https://rainnnee.github.io/rainpiao/)
 
-This is my personal website, bringing together my interests in applied mathematics, statistics, data science, computer science, and machine learning.
+My research, projects, and music, with a little room for theatre, running, chess, and everything else I’m into. Switch between the illustrated Immersive view and a compact Reading view.
 
 ## Behind the initials
 
@@ -25,7 +25,7 @@ assets/scripts/main.js     Intro animation and display preference
 assets/scripts/project-detail.js Mode switch on project pages
 assets/images/sky-full.png Pixel-preserving supplied skyline
 assets/images/sky-preview.jpg Fast-loading skyline preview
-assets/images/rain-piao-headshot.jpg Optimized profile portrait
+assets/images/              Supplied skyline, portraits, signature, and logos
 assets/audio/               Web-ready copies of selected music
 docs/design.md             Design decisions and artwork provenance
 CONTRIBUTING.md            Development and publishing workflow
@@ -37,12 +37,12 @@ CONTRIBUTING.md            Development and publishing workflow
 From the repository directory:
 
 ```sh
-python3 -m http.server 8000
+python3 scripts/preview.py
 ```
 
-Open [http://localhost:8000](http://localhost:8000).
+Open [http://127.0.0.1:8001](http://127.0.0.1:8001).
 
-The published website lives under `/rainpiao/`, so asset links must remain relative.
+The preview server supports byte ranges so waveform seeking works locally. The published website lives under `/rainpiao/`, so asset links must remain relative.
 
 ## Development
 
@@ -52,4 +52,4 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the workflow.
 
 ## Artwork
 
-The website background is an AI-generated image supplied by me. Its visual direction is inspired by Xeuphoria’s album artwork; the image itself was not created by Xeuphoria. The full-resolution PNG is retained without recompression; a small preview appears first and fades into the full image after it loads. No Xeuphoria album artwork is distributed with this site.
+The website background is an AI-generated image supplied by me. Its sky and palette pay homage to [wacca_わっか](https://x.com/wacca005)’s cover art for [*Piano Sessions: Reflections*](https://music.apple.com/us/album/piano-sessions-reflections/1700905900) (Xeuphoria × OneChilledPanda). Its visual direction is inspired by Xeuphoria’s album artwork; the image itself was not created by Xeuphoria. The full-resolution PNG is retained without recompression; a small preview appears first and fades into the full image after it loads. No Xeuphoria album artwork is distributed with this site.
