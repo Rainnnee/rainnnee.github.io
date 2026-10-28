@@ -16,13 +16,24 @@
         history.scrollRestoration = document.documentElement.dataset.mode === "accessible" ? "auto" : "manual";
       }
       document.documentElement.dataset.imageLoading = "true";
-      if (document.documentElement.dataset.mode !== "accessible") {
+      let keyboardReload = false;
+      try {
+        const shortcutAt = Number(sessionStorage.getItem("rainpiao-keyboard-reload"));
+        sessionStorage.removeItem("rainpiao-keyboard-reload");
+        const navigation = performance.getEntriesByType("navigation")[0];
+        const age = Date.now() - shortcutAt;
+        keyboardReload = navigation?.type === "reload" && shortcutAt > 0 && age >= 0 && age < 5000;
+      } catch {
+        // If storage is unavailable, the normal opening animation still plays.
+      }
+      if (document.documentElement.dataset.mode !== "accessible" && !keyboardReload) {
         document.documentElement.dataset.intro = "name";
       }
     </script>
     <link rel="preload" as="image" href="./assets/images/sky-preview.jpg?v=20261013-7" fetchpriority="high">
-    <link rel="stylesheet" href="./assets/styles/main.css?v=20261023-2">
-    <script src="./assets/scripts/main.js?v=20261023-2" defer></script>
+    <link rel="stylesheet" href="./assets/styles/main.css?v=20261024-4">
+    <link rel="stylesheet" href="./assets/styles/concepts.css?v=20261024-3">
+    <script src="./assets/scripts/main.js?v=20261024-4" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to content</a>
@@ -63,7 +74,7 @@
         <div class="intro-copy__heading">
           <p class="eyebrow">Rain Piao · Los Angeles</p>
           <h2 class="signature-name signature-name--image" id="about-title" aria-label="Rain Piao">
-            <svg viewBox="145 125 710 350" aria-hidden="true" focusable="false"><defs><filter id="signature-ink" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="0 0 0 0 0.25 0 0 0 0 0.265 0 0 0 0 0.28 -0.3333 -0.3333 -0.3333 0 1"/></filter></defs><image href="./assets/images/rain-piao-signature.jpg" width="1035" height="645" filter="url(#signature-ink)"/></svg>
+            <svg viewBox="145 125 710 350" aria-hidden="true" focusable="false"><defs><filter id="signature-ink" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="0 0 0 0 0.098 0 0 0 0 0.239 0 0 0 0 0.357 -0.3333 -0.3333 -0.3333 0 1"/></filter></defs><image href="./assets/images/rain-piao-signature.jpg" width="1035" height="645" filter="url(#signature-ink)"/></svg>
             <span class="signature-name__plain" aria-hidden="true">Rain Piao</span>
           </h2>
           <p class="intro-copy__lead">I’m a UCLA sophomore studying <em>Statistics &amp; Data Science</em> and <em>Applied Mathematics.</em></p>
@@ -83,8 +94,8 @@
           <article class="education-card">
             <div class="education-card__details">
               <p class="education-card__meta">2025–2029 <span>·</span> Expected June 2029</p>
-              <h3>University of California,<br>Los Angeles</h3>
-              <p>B.S. in Statistics and Data Science<br>B.S. in Applied Mathematics</p>
+              <h3>University of California, <br>Los Angeles</h3>
+              <div class="education-degrees"><p><span>B.S.</span>Statistics and Data Science</p><p><span>B.S.</span>Applied Mathematics</p></div>
               <p class="education-card__note">College Honors Program · Dean’s Honors List</p>
               <details class="coursework"><summary>Selected coursework <span aria-hidden="true">+</span></summary><p>Regression Analysis, Experimental Design, Statistical Programming with R, Linear Algebra, Multivariable Calculus, Differential Equations, and C++.</p></details>
             </div>
@@ -98,27 +109,37 @@
         <div class="section-heading section-heading--projects"><div><p class="eyebrow">02 / Experience</p><h2 id="experience-title"><span class="immersive-title">Selected work.</span><span class="reading-title">Experience</span></h2><p class="section-note">Research, team projects, and competitions.</p></div><div class="experience-controls" aria-label="Experience gallery controls"><span data-experience-count aria-live="polite">01–02 / 05</span><button class="experience-controls__button" type="button" data-experience-previous aria-label="Show previous experience" disabled>←</button><button class="experience-controls__button" type="button" data-experience-next aria-label="Show next experience">→</button></div></div>
         <div class="experience-track" data-experience-track tabindex="0" aria-label="Experience cards; scroll horizontally to browse">
           <article class="project-card experience-card experience-card--research" data-experience-card>
-            <div class="experience-cover" aria-hidden="true"><img class="project-mark project-mark--bruinml" src="./assets/images/bruinml-logo.jpg" alt="" loading="lazy" decoding="async"><div class="cover-art"><svg viewBox="0 0 260 150"><defs><pattern id="patches" width="22" height="22" patternUnits="userSpaceOnUse"><rect x="2" y="2" width="17" height="17" rx="2" fill="currentColor" opacity=".18"/></pattern></defs><rect width="260" height="150" fill="url(#patches)"/><rect class="scan-frame" x="88" y="43" width="84" height="62" rx="3" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="110" y="65" width="18" height="18" rx="2" fill="currentColor" opacity=".8"/></svg></div><span class="cover-subject">Computer vision</span><span class="cover-number">01</span></div>
+            <a class="concept-preview" href="./projects/bruinml.html" aria-label="Open the BruinML research project">
+              <div class="experience-cover concept-cover" aria-hidden="true"><img class="concept-cover__drawing" src="./assets/images/concepts/bruinml.svg?v=20261024-2" alt="" width="760" height="420" loading="lazy" decoding="async"><img class="project-mark project-mark--bruinml" src="./assets/images/bruinml-logo.jpg" alt="" loading="lazy" decoding="async"><span class="cover-subject">Computer vision</span><span class="cover-number">01</span><span class="concept-cover__open">↗</span></div>
+            </a>
             <div class="experience-card__body"><p class="project-card__meta">BruinML<span>Research · 2026–present</span></p><h3><span class="immersive-title">Finding unfamiliar regions in images.</span><span class="reading-title">CLIP-Based Out-of-Distribution Detection</span></h3><p class="research-card__status">Submitted to ALT · awaiting decision</p><p class="project-card__description">I work with a five-person team on detecting small, unfamiliar regions in images using frozen CLIP patch features. My part: extending a Monte Carlo study to 225 settings and testing how a spatial scan changes detection power.</p><div class="project-card__footer"><div class="tag-row"><span>Python</span><span>Computer vision</span><span>Statistical detection</span></div><a class="project-card__action" href="./projects/bruinml.html">Read about the project <span aria-hidden="true">↗</span></a></div></div>
           </article>
           <article class="project-card experience-card experience-card--poker" data-experience-card>
-            <div class="experience-cover" aria-hidden="true"><img class="project-mark project-mark--acm-ai" src="./assets/images/acm-ai-logo.png" alt="" loading="lazy" decoding="async"><div class="cover-art"><div class="poker-cards"><span>♠<small>A</small></span><span>♦<small>A</small></span><span>♣<small>A</small></span></div></div><span class="cover-subject">Decision modeling</span><span class="cover-number">02</span></div>
+            <a class="concept-preview" href="./projects/acm-ai-poker.html" aria-label="Open the ACM AI poker project">
+              <div class="experience-cover concept-cover" aria-hidden="true"><img class="concept-cover__drawing" src="./assets/images/concepts/poker.svg?v=20261024-2" alt="" width="760" height="420" loading="lazy" decoding="async"><img class="project-mark project-mark--acm-ai" src="./assets/images/acm-ai-logo.png" alt="" loading="lazy" decoding="async"><span class="cover-subject">Decision modeling</span><span class="cover-number">02</span><span class="concept-cover__open">↗</span></div>
+            </a>
             <div class="experience-card__body"><p class="project-card__meta">ACM AI at UCLA<span>Student project · Fall 2026–present</span></p><h3><span class="immersive-title">Learning how a poker player decides.</span><span class="reading-title">Poker Decision Modeling</span></h3><p class="project-card__description">With an ACM AI team, I’m developing a model that uses game state and earlier actions to estimate the chances of a player folding, calling, or raising. The project is in progress.</p><div class="project-card__footer"><div class="tag-row"><span>Machine learning</span><span>Sequential modeling</span><span>Probability</span></div><a class="project-card__action" href="./projects/acm-ai-poker.html">Read about the project <span aria-hidden="true">↗</span></a></div></div>
           </article>
           <article class="project-card experience-card experience-card--datafest" data-experience-card>
-            <div class="experience-cover" aria-hidden="true"><img class="project-mark project-mark--datafest" src="./assets/images/datafest-logo.png" alt="" loading="lazy" decoding="async"><div class="cover-art"><div class="datafest-cover-time">48<span>hours</span></div></div><span class="cover-subject">Healthcare data</span><span class="cover-number">03</span></div>
+            <a class="concept-preview" href="./projects/datafest.html" aria-label="Open the DataFest analysis project">
+              <div class="experience-cover concept-cover" aria-hidden="true"><img class="concept-cover__drawing" src="./assets/images/concepts/datafest.svg?v=20261024-2" alt="" width="760" height="420" loading="lazy" decoding="async"><img class="project-mark project-mark--datafest" src="./assets/images/datafest-logo.png" alt="" loading="lazy" decoding="async"><span class="cover-subject">Healthcare data</span><span class="cover-number">03</span><span class="concept-cover__open">↗</span></div>
+            </a>
             <div class="experience-card__body"><p class="project-card__meta">ASA DataFest at UCLA<span>Team competition · May 2026</span></p><h3><span class="immersive-title">A dataset, five people, 48 hours.</span><span class="reading-title">Healthcare Data Analysis</span></h3><p class="project-card__description">I coordinated a five-person team analyzing de-identified patient data. We used R, visualization, and Spearman correlation to study stress and social needs, then turned four analyses into a five-minute presentation on cancer care.</p><div class="project-card__footer"><div class="tag-row"><span>R</span><span>Data analysis</span><span>Team coordination</span></div><a class="project-card__action" href="./projects/datafest.html">Read about the project <span aria-hidden="true">↗</span></a></div></div>
           </article>
           <article class="project-card experience-card experience-card--trading" data-experience-card>
-            <div class="experience-cover" aria-hidden="true"><img class="project-mark project-mark--prosperity" src="./assets/images/prosperity4-official.png" alt="" loading="lazy" decoding="async"><div class="cover-art"><div class="trading-cover-text"><span>BACKTEST</span><span>POSITION</span><span>RISK</span></div></div><span class="cover-subject">Algorithmic trading</span><span class="cover-number">04</span></div>
+            <a class="concept-preview" href="./projects/prosperity4.html" aria-label="Open the Prosperity trading project">
+              <div class="experience-cover concept-cover" aria-hidden="true"><img class="concept-cover__drawing" src="./assets/images/concepts/trading.svg?v=20261024-2" alt="" width="760" height="420" loading="lazy" decoding="async"><img class="project-mark project-mark--prosperity" src="./assets/images/prosperity4-official.png" alt="" loading="lazy" decoding="async"><span class="cover-subject">Algorithmic trading</span><span class="cover-number">04</span><span class="concept-cover__open">↗</span></div>
+            </a>
             <div class="experience-card__body"><p class="project-card__meta">IMC Prosperity 4<span>Trading competition · Spring 2026</span></p><h3><span class="immersive-title">Building a trading strategy.</span><span class="reading-title">Algorithmic Trading Strategies</span></h3><p class="project-card__description">I developed and backtested Python strategies with adaptive mean reversion, position limits, and end-of-round controls. Our team reached Round 3 and placed in the top 16% of 18,803 teams.</p><div class="project-card__footer"><div class="tag-row"><span>Python</span><span>Backtesting</span><span>Risk controls</span></div><a class="project-card__action" href="./projects/prosperity4.html">Read about the project <span aria-hidden="true">↗</span></a></div></div>
           </article>
           <article class="project-card experience-card experience-card--lidar" data-experience-card>
-            <div class="experience-cover" aria-hidden="true"><img class="project-mark project-mark--seyond" src="./assets/images/seyond-logo.png" alt="" loading="lazy" decoding="async"><div class="cover-art"><svg viewBox="0 0 260 150"><defs><pattern id="cloud-points" width="17" height="17" patternUnits="userSpaceOnUse"><circle cx="8" cy="8" r="1.5" fill="currentColor" opacity=".35"/></pattern></defs><rect width="260" height="150" fill="url(#cloud-points)"/><path d="m65 100 58-26 68 8-58 30z m0-30 58-26 68 8-58 30z m0 0v30m58-56v30m68-22v30m-58 0v30" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></div><span class="cover-subject">LiDAR & tracking</span><span class="cover-number">05</span></div>
+            <a class="concept-preview" href="./projects/lidar-traffic.html" aria-label="Open the LiDAR traffic project">
+              <div class="experience-cover concept-cover" aria-hidden="true"><img class="concept-cover__drawing" src="./assets/images/concepts/lidar.svg?v=20261024-2" alt="" width="760" height="420" loading="lazy" decoding="async"><img class="project-mark project-mark--seyond" src="./assets/images/seyond-logo.png" alt="" loading="lazy" decoding="async"><span class="cover-subject">LiDAR &amp; tracking</span><span class="cover-number">05</span><span class="concept-cover__open">↗</span></div>
+            </a>
             <div class="experience-card__body"><p class="project-card__meta">Independent project<span>2025 · The Pennington School</span></p><h3><span class="immersive-title">From point clouds to passing cars.</span><span class="reading-title">LiDAR Traffic-Monitoring System</span></h3><p class="project-card__description">I built a C++ pipeline to group LiDAR points into vehicles, draw bounding boxes, and track them frame by frame. Their displacement over time gives an estimate of traffic speed.</p><div class="project-card__footer"><div class="tag-row"><span>C++</span><span>3D breadth-first search</span><span>Object tracking</span></div><a class="project-card__action" href="./projects/lidar-traffic.html">Read about the project <span aria-hidden="true">↗</span></a></div></div>
           </article>
         </div>
-        <div class="experience-index" aria-label="Jump to a project"><button type="button" data-experience-go="0" aria-label="Show BruinML project"><span>01</span><span>BruinML</span></button><button type="button" data-experience-go="1" aria-label="Show ACM AI at UCLA project"><span>02</span><span>ACM AI at UCLA</span></button><button type="button" data-experience-go="2" aria-label="Show ASA DataFest at UCLA project"><span>03</span><span>ASA DataFest at UCLA</span></button><button type="button" data-experience-go="3" aria-label="Show IMC Prosperity 4 project"><span>04</span><span>IMC Prosperity 4</span></button><button type="button" data-experience-go="4" aria-label="Show Independent project project"><span>05</span><span>Independent project</span></button></div>
+        <div class="experience-index" aria-label="Jump to a project"><button type="button" data-experience-go="0" aria-label="Show BruinML project"><span>01</span><span>BruinML</span></button><button type="button" data-experience-go="1" aria-label="Show ACM AI at UCLA project"><span>02</span><span>ACM AI at UCLA</span></button><button type="button" data-experience-go="2" aria-label="Show ASA DataFest at UCLA project"><span>03</span><span>ASA DataFest at UCLA</span></button><button type="button" data-experience-go="3" aria-label="Show IMC Prosperity 4 project"><span>04</span><span>IMC Prosperity 4</span></button><button type="button" data-experience-go="4" aria-label="Show LiDAR traffic project"><span>05</span><span>Independent project</span></button></div>
       </section>
 
       <section class="skills content-width" id="skills" aria-labelledby="skills-title"><div class="section-heading"><p class="eyebrow">03 / Toolkit</p><h2 id="skills-title"><span class="immersive-title">What I work with.</span><span class="reading-title">Skills</span></h2><p class="section-note">The math, methods, and tools behind the projects.</p></div><div class="skills-list"><details class="skill-group"><summary>Mathematics & statistics<span aria-hidden="true">+</span></summary><div class="tag-row"><span>Applied mathematics</span><span>Regression analysis</span><span>Experimental design</span><span>Rank correlation</span><span>Linear algebra</span><span>Multivariable calculus</span><span>Differential equations</span></div></details><details class="skill-group"><summary>Computing & data<span aria-hidden="true">+</span></summary><div class="tag-row"><span>Python</span><span>R</span><span>C++</span><span>Linux</span><span>Data visualization</span></div></details><details class="skill-group"><summary>Machine learning & research<span aria-hidden="true">+</span></summary><div class="tag-row"><span>Computer vision</span><span>CLIP patch features</span><span>Monte Carlo simulation</span><span>Out-of-distribution detection</span></div></details><details class="skill-group"><summary>Algorithms & markets<span aria-hidden="true">+</span></summary><div class="tag-row"><span>Algorithm design</span><span>Backtesting</span><span>Mean reversion</span><span>Risk controls</span></div></details></div></section>
@@ -126,17 +147,19 @@
       <section class="music content-width" id="music" aria-labelledby="music-title">
         <div class="section-heading">
           <p class="eyebrow">04 / Music</p>
-          <h2 id="music-title">There’s music here, too.</h2><p class="section-note">Two of my earlier tracks.</p>
+          <h2 id="music-title">There’s music here, too.</h2><p class="section-note">Two of my earlier tracks.</p><div class="music-grooves" aria-hidden="true"><span></span></div>
         </div>
         <div class="music-grid" aria-label="Selected music tracks">
           <article class="track-card">
-            <div class="track-card__heading">
+            <div class="track-card__heading"><div class="track-cover" aria-hidden="true"><span></span></div>
               <div>
                 <p class="track-card__eyebrow">01 / Original track</p>
                 <h3>Breath Away</h3>
+                <p class="track-card__genre">Melodic Dubstep</p>
                 <p class="track-card__credit">Yufei Piao</p>
               </div>
             </div>
+            <dl class="track-card__details"><div><dt>Tempo</dt><dd>73 <span>BPM</span></dd></div><div><dt>Key</dt><dd aria-label="B-flat major or G minor">B♭ major / G minor</dd></div></dl>
             <div class="track-player" data-track-player data-track-name="Breath Away" data-duration="280">
               <button class="track-player__play" type="button" aria-label="Play Breath Away" aria-pressed="false" hidden><span aria-hidden="true"></span></button>
               <input class="track-waveform" data-waveform="breath-away" type="range" min="0" max="280" step="0.1" value="0" aria-label="Seek through Breath Away" aria-valuetext="0:00 of 4:40" hidden>
@@ -149,13 +172,15 @@
             </div>
           </article>
           <article class="track-card">
-            <div class="track-card__heading">
+            <div class="track-card__heading"><div class="track-cover track-cover--camelia" aria-hidden="true"><span></span></div>
               <div>
                 <p class="track-card__eyebrow">02 / Original track</p>
                 <h3>Camelia Overdose</h3>
+                <p class="track-card__genre">UK Hardcore</p>
                 <p class="track-card__credit">Yufei Piao</p>
               </div>
             </div>
+            <dl class="track-card__details"><div><dt>Tempo</dt><dd>235 <span>BPM</span></dd></div><div><dt>Key</dt><dd aria-label="C minor or E-flat major">C minor / E♭ major</dd></div></dl>
             <div class="track-player" data-track-player data-track-name="Camelia Overdose" data-duration="159.12">
               <button class="track-player__play" type="button" aria-label="Play Camelia Overdose" aria-pressed="false" hidden><span aria-hidden="true"></span></button>
               <input class="track-waveform" data-waveform="camelia-overdose" type="range" min="0" max="159.12" step="0.1" value="0" aria-label="Seek through Camelia Overdose" aria-valuetext="0:00 of 2:39" hidden>
@@ -205,7 +230,7 @@
             <h3>VALORANT</h3>
             <dl class="interest-card__stats">
               <div><dt>Current rank</dt><dd><img class="interest-card__rank-badge" src="./assets/images/valorant-rank-platinum-3.png" alt="" width="256" height="256" loading="lazy" decoding="async"><span>Platinum 3</span></dd></div>
-              <div><dt>Peak rank</dt><dd><img class="interest-card__rank-badge" src="./assets/images/valorant-rank-diamond-1.png" alt="" width="256" height="256" loading="lazy" decoding="async"><span>Diamond 1</span></dd></div>
+              <div><dt>Peak rank</dt><dd><img class="interest-card__rank-badge" src="./assets/images/valorant-rank-diamond-2.png" alt="" width="256" height="256" loading="lazy" decoding="async"><span>Diamond 2</span></dd></div>
             </dl><p class="rank-updated">Last updated October 2026</p>
           </article>
           <article class="interest-card interest-card--theatre">

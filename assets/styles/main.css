@@ -59,7 +59,7 @@ html[data-intro='name'] .page-content { opacity: 0; transform: translateY(3rem);
 .intro-copy { display: grid; grid-template-columns: 1fr 1.06fr; align-items: center; gap: clamp(2rem,5vw,5rem); }
 .intro-copy__heading { min-width: 0; }
 .signature-name--image { width: min(75%,18rem); margin: 0 0 1.7rem -.65rem; }
-.signature-name--image svg { display: block; width: 100%; height: auto; opacity: .9; }
+.signature-name--image svg { display: block; width: 100%; height: auto; opacity: .98; }
 .signature-name__plain { display: none; }
 .intro-copy__lead { max-width: 28ch; margin: 0 0 1.3rem; font: 400 clamp(1.65rem,2.6vw,2.25rem)/1.28 Georgia,serif; letter-spacing: -.025em; }
 .intro-copy__lead em { font-style: normal; }
@@ -340,9 +340,10 @@ html[data-mode='accessible'] *, html[data-mode='accessible'] *::before, html[dat
  body[data-mode='accessible'] .intro-copy { grid-template-columns: 1fr; }
  body[data-mode='accessible'] .intro-copy__photo { grid-row: 1; justify-self: start; }
 }
+/* Immersive is the animated presentation; Reading is the still alternative. */
 @media (prefers-reduced-motion: reduce) {
- html { scroll-behavior: auto; }
- *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+ html:not([data-mode='animated']) { scroll-behavior: auto; }
+ html:not([data-mode='animated']) *, html:not([data-mode='animated']) *::before, html:not([data-mode='animated']) *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
  body::after { background: rgb(249 249 252 / 90%); }
@@ -374,7 +375,7 @@ body::after {
 body[data-mode='accessible'] .intro-copy { grid-template-columns: 1fr 13rem; }
 body[data-mode='accessible'] .intro-copy__portrait { width: 13rem; }
 body[data-mode='accessible'] .education-record { padding: 0; border: 0; border-top: 1px solid #bbb; border-radius: 0; background: white; box-shadow: none; }
-body[data-mode='accessible'] .education-card h3 { color: #222; font-size: 1.3rem; }
+body[data-mode='accessible'] .education-card h3 { max-width: none; color: #222; font-size: 1.3rem; }
 body[data-mode='accessible'] .sky-interlude { display: none; }
 @media (max-width: 760px) {
  .education-record { padding-inline: 1.5rem; }

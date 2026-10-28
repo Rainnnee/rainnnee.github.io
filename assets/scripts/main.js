@@ -279,10 +279,6 @@
   }
 
   function playIntro() {
-    if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      delete root.dataset.intro;
-      return;
-    }
     if (root.dataset.intro !== "name" || body.dataset.mode === "accessible") return;
     const previousBehavior = document.documentElement.style.scrollBehavior;
     document.documentElement.style.scrollBehavior = "auto";
@@ -341,6 +337,14 @@
   window.addEventListener("scroll", () => {
     if (window.scrollY > 24) body.classList.remove("show-scroll-cue");
   }, { passive: true });
+
+  // A one-use, short-lived hint distinguishes an observed keyboard reload.
+  // Browsers that reserve the shortcut simply fall back to the normal intro.
+  window.addEventListener("keydown", (event) => {
+    if (!(event.metaKey || event.ctrlKey) || event.altKey || event.key.toLowerCase() !== "r") return;
+    try { sessionStorage.setItem("rainpiao-keyboard-reload", String(Date.now())); }
+    catch { /* Reload remains usable without storage. */ }
+  }, { capture: true });
 
   playIntro();
 })();
