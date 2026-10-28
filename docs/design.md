@@ -75,3 +75,17 @@ The gallery now uses five original SVG illustrations in `assets/images/concepts/
 These are illustrative scenes, not experimental heatmaps, patient records, market performance charts, or recorded sensor data. The trading reference line is a conceptual mean, with no price axis or returns claim. The poker branches suggest discarding, matching, and increasing without fabricated probabilities. Small decorative sleeve designs beside the music players are CSS artwork, not album covers supplied by the artist. New artwork remains local for review; no raster images or AI-generated assets were needed.
 
 Music metadata supplied by Rain: Breath Away is Melodic Dubstep at 73 BPM, B♭ major / G minor; Camelia Overdose is UK Hardcore at 235 BPM, C minor / E♭ major. Genres sit directly beneath the track titles, with tempo and key in a compact row above the waveform. The VALORANT peak rank is Diamond 2; its badge comes from the same documented game-asset API (competitive tier set `03621f52-342b-cf4e-4f86-9350a49c6d04`, tier 19). The signature ink now matches the site’s navy text.
+
+## Project library and Toolkit iteration — local preview
+
+The editorial design and approved vector artwork were published in [PR #10](https://github.com/Rainnnee/rainpiao/pull/10), squash commit `ed7a6c86db1be0359e70a8f61a83a5ab8308fcab`; the public page was verified after deployment. The following work is on `feat/project-library-and-toolkit` for preview.
+
+Work is divided into separate Research, Software, and Competitions sections, all visible at once. A compact navigation strip jumps between them. Research has an illustrated feature, software shows three compact cards across, and competitions have two shorter entries. Concise summaries improve scanning; full notes stay on detail pages. Reading keeps the same classification in a continuous text list. The empty employment scaffold is a separate chronological timeline; no position or employer is invented, and neither a section nor a navigation link appears until real data is supplied.
+
+Pusheng's original SVG cover shows an original engraved-note motif becoming discrete notes on a MIDI piano roll. It follows the same quiet, detailed vector-art language as the other covers, with no explanatory diagram labels. Its ongoing status and current recognition/evaluation stage are explicit. The repository address is confirmed in the local project's Git remote and is labeled not public yet.
+
+Toolkit uses a unified paper surface, heading, tool badges, practical methods, and project-evidence link in each of four groups. Tools follow the confirmed items on [Rain’s GitHub profile](https://github.com/Rainnnee/Rainnnee); methods are grounded in the actual projects. Mathematical foundations retain an expandable list. Reading uses plain text instead of brand badges. Badge logo artwork originates from the providers used by Shields.io / Simple Icons; no tool logos were generated or imitated. Sources follow the profile README's badge URLs.
+
+The Reading portrait is now a framed left-column image aligned with the introduction. Narrow screens center the portrait above the text. This retains the supplied golden-hour photograph and avoids an isolated floating image at the far right.
+
+See [content.md](content.md) for adding projects, classification, real employment data, and current factual limits.
