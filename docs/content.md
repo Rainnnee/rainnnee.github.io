@@ -4,7 +4,7 @@
 
 Projects are grouped into three separate, permanently visible sections in `index.html`: Research (`#research`), Software (`#software`), and Competitions (`#competitions`). The work navigation jumps between those sections rather than filtering a single gallery. Each group has a heading, brief scope, and its own set of articles. All content and navigation remain usable without JavaScript.
 
-Research uses a wider illustrated feature; software uses three compact cards across on desktop; competitions use two shorter illustrated entries. The layout becomes two columns on medium screens and a single column on phones. Overview descriptions are intentionally concise; full contributions and context belong on each linked detail page. Reading shows the same groups as a continuous, professional list.
+Research uses two larger illustrated cards across on desktop; software uses three readable cards across; competitions use two shorter illustrated entries. The layout becomes two columns on medium screens and a single column on phones. Overview descriptions are intentionally concise; full contributions and context belong on each linked detail page. Reading shows the same groups as a continuous, professional list.
 
 To add a project, place a semantic article inside the appropriate `.work-group__cards`. Keep a stable `data-project-id`, a cover, clear status, short summary, tools, and detail-page link. Choose its primary context independently of technologies: an ML software project can sit under Software, with machine learning in its visible tags. Keep current work first within each group. Navigation counts come from the actual articles; no filter logic or duplicate project data is required.
 
@@ -38,3 +38,7 @@ Tool badges are local copies of the Shields.io assets used in Rain’s GitHub pr
 The entry is based on the local `MIDI Scanner` repository's README and project status report, reviewed October 27, 2026. The offline recognition/evaluation work exists; the musician-facing upload/review application remains in development. Do not describe the interface, expressive playback, or general-purpose recognition reliability as shipped.
 
 The confirmed repository URL is `https://github.com/Rainnnee/pdf-to-midi`. It is labeled “not public yet” on the detail page, so visitors are told before following a restricted or unavailable link. Do not change repository visibility from the website task.
+
+## BruinML research entries
+
+Research has two separate entries. The CLIP-based detection work is completed (2026 through October 2026), with its ALT 2027 manuscript still under review. The Fall 2026 demonstration-ranking project is ongoing. Its public description is limited to the research question and intended direction; add individual contributions or results only when Rain provides them. Keep the private Overleaf notes out of the website repository.

@@ -155,3 +155,71 @@ body[data-mode='accessible'] .employment-entry__body::before { display: none; }
  body[data-mode='accessible'] .intro-copy__photo { grid-column: 1; grid-row: 1; justify-self: center; width: min(11rem,60%); }
  body[data-mode='accessible'] .intro-copy__heading { grid-column: 1; grid-row: 2; }
 }
+/* Content hierarchy: research and builds lead; music is a compact listening aside. */
+.work-directory { width: min(calc(100% - 2 * var(--page-gutter)),1200px); }
+.work-directory > .section-heading { margin-bottom: 1.6rem; }
+.work-group + .work-group { margin-top: 3rem; }
+.work-group__heading { margin-bottom: 1.1rem; }
+.work-group__heading h3 { font-size: 1.65rem; }
+.work-group--research .work-group__cards { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1.5rem; }
+.work-group--research .project-card { display: flex; flex-direction: column; }
+.work-group--research .concept-preview { display: block; }
+.work-directory .experience-card__body { padding: 1.5rem; }
+.work-directory .project-card h4 { font-size: 1.7rem; }
+.work-group--research .project-card h4 { font-size: 2rem; }
+.work-directory .project-card__description { font-size: .88rem; line-height: 1.7; }
+.work-directory .project-card__meta { font-size: .69rem; margin-bottom: .85rem; }
+.work-directory .research-card__status { font-size: .69rem; margin-bottom: 1rem; }
+.work-directory .tag-row span { font-size: .65rem; }
+.work-directory .project-card__action { font-size: .76rem; }
+.work-directory .cover-subject, .work-directory .cover-number { display: none; }
+.work-directory .project-card { box-shadow: 0 5px 18px #193d5b05; }
+.experience-card--rollouts .experience-cover { background: #e3e8e8; color: #536f83; }
+.music { display: grid; grid-template-columns: minmax(11rem,.65fr) minmax(0,2fr); gap: 2rem; padding: 2rem; box-shadow: 0 10px 30px #193d5b0c; }
+.music > .section-heading { margin: 0; }
+.music h2 { max-width: 12ch; font-size: 2.2rem; line-height: 1.15; }
+.music .section-note { font-size: .8rem; }
+.music .music-grooves, .music .track-card__eyebrow { display: none; }
+.music .music-grid { margin: 0; gap: 1.5rem; }
+.music .track-card { padding: 0; border: 0; }
+.music .track-cover { flex-basis: 2.7rem; height: 2.7rem; }
+.music .track-card__heading { gap: .75rem; align-items: start; }
+.music .track-card h3 { font-size: 1.45rem; line-height: 1.15; }
+.music .track-card__genre { margin: .35rem 0 0; padding: 0; border: 0; border-radius: 0; background: none; font-size: .7rem; font-weight: 500; }
+.music .track-card__credit { font-size: .65rem; margin: .3rem 0 0; }
+.music .track-card__details { gap: .4rem 1rem; margin: .9rem 0; padding-block: .65rem; }
+.music .track-card__details dd { font-size: .7rem; }
+.toolkit-methods li { background: none; border: 0; border-radius: 0; padding: 0; }
+.toolkit-methods li:not(:last-child)::after { content: ' ·'; padding-left: .35rem; color: #9aacb8; }
+@media (max-width: 1050px) {
+ .music { grid-template-columns: 1fr; gap: 1.5rem; }
+ .music h2 { max-width: none; font-size: 2rem; }
+ .music .music-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+}
+@media (max-width: 900px) {
+ .work-group--research .work-group__cards { gap: 1rem; }
+ .work-group--research .project-card h4 { font-size: 1.7rem; }
+}
+@media (max-width: 620px) {
+ .work-directory .work-group__cards { grid-template-columns: 1fr; }
+ .work-directory .project-card h4 { font-size: 1.7rem; }
+ .work-directory .experience-card__body { padding: 1.35rem; }
+ .work-directory .project-card__description { font-size: .9rem; }
+ .work-group__heading h3 { font-size: 1.5rem; }
+ .music { padding: 1.5rem; }
+ .music .music-grid { grid-template-columns: 1fr; gap: 1.4rem; }
+ .music .track-card + .track-card { padding-top: 1.25rem; border-top: 1px solid #bdcfda40; }
+ .music h2 { font-size: 1.9rem; }
+}
+body[data-mode='accessible'] .work-directory { width: min(calc(100% - 2 * var(--page-gutter)),var(--content-width)); }
+body[data-mode='accessible'] .work-directory .project-card { display: block; box-shadow: none; }
+body[data-mode='accessible'] .work-directory .concept-preview { display: none; }
+body[data-mode='accessible'] .work-directory .experience-card__body { padding: 1.1rem 0; }
+body[data-mode='accessible'] .work-directory .project-card h4 { font-size: 1.3rem; }
+body[data-mode='accessible'] .work-directory .project-card__description { font-size: .95rem; }
+body[data-mode='accessible'] .work-group__heading h3 { font-size: 1.15rem; }
+body[data-mode='accessible'] .music { display: none; }
+/* Only the intro's lift animates banner height; skipping it or changing modes must not shift an anchor after navigation. */
+.masthead { transition: none; }
+html[data-intro='lift'] .masthead { transition: height 1400ms var(--ease-out); }
+.music .track-card:nth-child(2) .track-card__genre { background: none; }

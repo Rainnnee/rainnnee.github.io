@@ -89,3 +89,15 @@ Toolkit uses a unified paper surface, heading, tool badges, practical methods, a
 The Reading portrait is now a framed left-column image aligned with the introduction. Narrow screens center the portrait above the text. This retains the supplied golden-hour photograph and avoids an isolated floating image at the far right.
 
 See [content.md](content.md) for adding projects, classification, real employment data, and current factual limits.
+
+## Content-weighted proportions — October 29, 2026
+
+Research and software are the primary reading destinations. Work now has a maximum width of 1200px, larger card headings and body text, and two illustrated research entries across on desktop. Existing software and competition groups remain separate. Redundant cover numbers and subject labels are hidden so the original vector scenes have room without competing with the titles below. Toolkit methods use a light text treatment instead of many outlined boxes.
+
+Music remains a contrasting navy listening panel but uses a narrow editorial heading alongside both tracks, modest sleeve artwork, and compact metadata. Waveforms, seeking, genre, BPM, and key remain available. On smaller screens it stacks without hiding controls; Reading continues to omit music.
+
+The new BruinML entry, “Rollouts Needed to Rank,” summarizes the research question from the Overleaf notes supplied by Rain, reviewed October 29. It describes evaluation-rollout sample requirements, variance, and ranking of demonstration influence. It makes no claims about Rain’s completed contributions or research results, and does not publish the private working notes. The original SVG `concepts/rollouts.svg` illustrates a robot arm, demonstration traces, possible rollout paths, and uncertainty intervals. It is conceptual vector artwork, not an empirical result or a reproduction of a figure from the notes.
+
+Rain confirmed that the CLIP project is complete. Its period now ends in October 2026, aligned with the October 12 ALT 2027 submission deadline; the manuscript remains under review. The [official ALT 2027 schedule](https://algorithmiclearningtheory.org/alt2027/call-for-papers/) gives January 5, 2027 as author notification. A publication decision is separate from the active research period; do not imply acceptance or extend the project through that future date.
+
+Banner-height transitions are now limited to the intro lift. Skipping the intro or switching display modes changes its height immediately, so a subsequent section jump is not displaced by a delayed banner resize. Normal blur/rise and lift timings are unchanged.
