@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#d8edfa">
+    <meta name="description" content="Rain Piao’s ongoing BruinML research on reliable ranking of robot demonstrations from limited evaluation rollouts.">
+    <title>Rollouts Needed to Rank — Rain Piao</title>
+    <script>
+      try {
+        document.documentElement.dataset.mode = localStorage.getItem("rainpiao-mode") === "accessible" ? "accessible" : "animated";
+      } catch {
+        document.documentElement.dataset.mode = "animated";
+      }
+    </script>
+    <link rel="stylesheet" href="../assets/styles/main.css?v=20261023-2">
+    <link rel="stylesheet" href="../assets/styles/project-pages.css?v=20261023-1">
+    <script src="../assets/scripts/project-detail.js?v=20261014-1" defer></script>
+  </head>
+  <body class="project-page" data-mode="animated">
+    <script>document.body.dataset.mode = document.documentElement.dataset.mode || "animated";</script>
+    <img class="sky-background" src="../assets/images/sky-full.png?v=20261013-7" alt="" width="3344" height="1880" decoding="async">
+    <header class="project-detail-nav">
+      <a class="project-detail-nav__back" href="../index.html#experience">← All projects</a>
+      <a class="project-detail-nav__name" href="../index.html" aria-label="Rain Piao">ℝain ℙiao</a>
+      <button class="mode-toggle" type="button" role="switch" aria-checked="false" aria-label="Switch to Reading mode" hidden>
+        <span class="mode-toggle__option mode-toggle__option--immersive">Immersive</span>
+        <span class="mode-toggle__track" aria-hidden="true"><span class="mode-toggle__thumb"></span></span>
+        <span class="mode-toggle__option mode-toggle__option--reading">Reading</span>
+      </button>
+    </header>
+    <main class="project-detail content-width"><article><div class="project-detail__hero"><div><p class="project-detail__eyebrow">BruinML · Research · Fall 2026–present</p><h1>Rollouts Needed to Rank</h1><p class="project-detail__summary">How much evaluation is enough to tell which demonstrations are most useful to a learned robot policy?</p></div><img class="project-detail__mark" src="../assets/images/bruinml-logo.jpg" alt="" aria-hidden="true" loading="lazy"></div>
+      <dl class="project-detail__facts"><div><dt>Status</dt><dd>Ongoing · started Fall 2026</dd></div><div><dt>Area</dt><dd>Learning theory &amp; robotics</dd></div><div><dt>Focus</dt><dd>Demonstration influence &amp; ranking</dd></div></dl>
+      <section class="project-detail__section" aria-labelledby="question"><h2 id="question">The question</h2><p>Demonstrations provide the examples a robot learns from. Rollouts are new attempts made by the trained policy. This project asks how many of those evaluation attempts are needed to reliably rank demonstrations by their influence on expected task performance.</p></section>
+      <section class="project-detail__section" aria-labelledby="uncertainty"><h2 id="uncertainty">Why ranking is difficult</h2><p>Influence scores estimated from a small rollout budget are noisy. When demonstrations have similar scores, that noise can change which ones appear most useful. Reusing rollouts also makes the estimates statistically dependent, so confidence in a ranking depends on more than each score in isolation.</p></section>
+      <section class="project-detail__section" aria-labelledby="direction"><h2 id="direction">Research direction</h2><p>The project will study how rollout budget, estimator variance, and gaps between influence scores affect reliable selection. Variance-reduction methods are one direction of interest. A second distinction matters throughout: estimating an influence ranking accurately is not the same as proving which subset performs best after retraining.</p><p>This entry describes the goal of a newly started project. Individual contributions and results will be added as the work develops.</p></section>
+    </article><a class="project-detail__back-bottom" href="../index.html#research">← Back to Research</a></main>
+  </body>
+</html>

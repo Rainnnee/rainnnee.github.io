@@ -75,6 +75,7 @@
         detailStates.delete(details);
       }
     }
+    document.dispatchEvent(new CustomEvent("rainpiao:modechange", { detail: { mode: body.dataset.mode } }));
     if (persist) {
       try {
         localStorage.setItem("rainpiao-mode", accessible ? "accessible" : "animated");
@@ -116,61 +117,6 @@
       }
     }, { rootMargin: "-18% 0px -68% 0px" });
     for (const { section } of navLinks) observer.observe(section);
-  }
-
-  const experience = document.querySelector(".experience");
-  const experienceTrack = document.querySelector("[data-experience-track]");
-  if (experience && experienceTrack) {
-    const cards = [...experienceTrack.querySelectorAll(":scope > .project-card")];
-    const count = experience.querySelector("[data-experience-count]");
-    const previous = experience.querySelector("[data-experience-previous]");
-    const next = experience.querySelector("[data-experience-next]");
-    const indexButtons = [...experience.querySelectorAll("[data-experience-go]")];
-    let activeCard = 0;
-    let scrollFrame = 0;
-
-    function updateExperienceControls() {
-      scrollFrame = 0;
-      const trackRect = experienceTrack.getBoundingClientRect();
-      const visible = cards.map((card, index) => ({ rect: card.getBoundingClientRect(), index }))
-        .filter(({ rect }) => rect.left >= trackRect.left - 4 && rect.right <= trackRect.right + 4);
-      const nearest = cards.reduce((best, card, index) =>
-        Math.abs(card.getBoundingClientRect().left - trackRect.left) < Math.abs(cards[best].getBoundingClientRect().left - trackRect.left) ? index : best, 0);
-      activeCard = visible[0]?.index ?? nearest;
-      const last = visible.at(-1)?.index ?? activeCard;
-      const from = String(activeCard + 1).padStart(2, "0");
-      const to = String(last + 1).padStart(2, "0");
-      count.textContent = `${from}${last > activeCard ? `–${to}` : ""} / ${String(cards.length).padStart(2, "0")}`;
-      previous.disabled = experienceTrack.scrollLeft <= 2;
-      next.disabled = experienceTrack.scrollLeft >= experienceTrack.scrollWidth - experienceTrack.clientWidth - 3;
-      for (const [index, button] of indexButtons.entries()) {
-        if (index === activeCard) button.setAttribute("aria-current", "true");
-        else button.removeAttribute("aria-current");
-      }
-    }
-    function scheduleExperienceControlsUpdate() {
-      if (!scrollFrame) scrollFrame = requestAnimationFrame(updateExperienceControls);
-    }
-    function showExperienceCard(index) {
-      const target = Math.max(0, Math.min(cards.length - 1, index));
-      const left = cards[target].getBoundingClientRect().left - experienceTrack.getBoundingClientRect().left + experienceTrack.scrollLeft;
-      experienceTrack.scrollTo({ left, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
-    }
-    previous.addEventListener("click", () => showExperienceCard(activeCard - 1));
-    next.addEventListener("click", () => showExperienceCard(activeCard + 1));
-    for (const button of indexButtons) button.addEventListener("click", () => showExperienceCard(Number(button.dataset.experienceGo)));
-    experienceTrack.addEventListener("scroll", scheduleExperienceControlsUpdate, { passive: true });
-    experienceTrack.addEventListener("keydown", (event) => {
-      if (event.target !== experienceTrack) return;
-      const target = { ArrowLeft: activeCard - 1, ArrowRight: activeCard + 1, Home: 0, End: cards.length - 1 }[event.key];
-      if (target === undefined) return;
-      event.preventDefault();
-      showExperienceCard(target);
-    });
-    window.addEventListener("resize", scheduleExperienceControlsUpdate, { passive: true });
-    if ("ResizeObserver" in window) new ResizeObserver(scheduleExperienceControlsUpdate).observe(experienceTrack);
-    experience.classList.add("experience--ready");
-    updateExperienceControls();
   }
 
   function formatTrackTime(seconds) {
